@@ -8,20 +8,58 @@ import ListRow from "../shared/ListRow";
 import { Spacing } from "../shared/Spacing";
 import Tag from "../shared/Tag";
 import Text from "../shared/Text";
+import { differenceInMilliseconds } from "date-fns";
+import { parseISO } from "date-fns/parseISO";
+import formatTime from "../../utils/formatTime";
+import { useEffect, useState } from "react";
 
 function Hotel({ hotel }: { hotel: IHotel }) {
+  const [remainedTime, setRemainedTime] = useState(0);
+
+  useEffect(() => {
+    if (hotel.events == null || hotel.events.promoEndTime == null) {
+      return;
+    }
+
+    const promoEndTime = hotel.events.promoEndTime;
+
+    const Timer = setInterval(() => {
+      const lastSeconds = differenceInMilliseconds(
+        parseISO(promoEndTime),
+        new Date()
+      );
+
+      if (lastSeconds < 0) {
+        clearInterval(Timer);
+        return;
+      }
+
+      setRemainedTime(lastSeconds);
+    }, 1000);
+
+    return () => {
+      clearInterval(Timer);
+    };
+  });
+
   const tagComponent = () => {
     if (hotel.events == null) {
       return null;
     }
 
-    const { name } = hotel.events;
+    const { name, tagThemeStyle } = hotel.events;
 
-    console.log(name);
+    const promotionTxt =
+      remainedTime > 0 ? `${formatTime(remainedTime)} 남음` : ``;
 
     return (
       <div>
-        <Tag>{name}</Tag>
+        <Tag
+          color={tagThemeStyle.fontColor}
+          backgroundColor={tagThemeStyle.backgroundColor}
+        >
+          {name.concat(promotionTxt)}
+        </Tag>
         <Spacing size={8} />
       </div>
     );
