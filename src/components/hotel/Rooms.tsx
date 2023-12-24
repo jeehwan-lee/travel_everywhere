@@ -2,6 +2,7 @@
 
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { addDelimiter } from "../../utils/addDelimiter";
 import Button from "../shared/Button";
 import Flex from "../shared/Flex";
 import ListRow from "../shared/ListRow";
@@ -51,7 +52,7 @@ function Rooms({ hotelId }: { hotelId: string }) {
                       ) : null}
                     </Flex>
                   }
-                  subTitle={`${room.price}원 / `.concat(
+                  subTitle={`${addDelimiter(room.price)}원 / `.concat(
                     room.refundable ? "환불가능" : "환불불가"
                   )}
                 ></ListRow.Texts>
