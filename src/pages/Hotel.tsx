@@ -20,7 +20,7 @@ function Hotel() {
     <div>
       <Top title={name} subTitle={comment} />
       <Carousel images={images} />
-      <Rooms />
+      <Rooms hotelId={id} />
       <Contents contents={contents} />
     </div>
   );
