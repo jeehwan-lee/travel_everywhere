@@ -6,14 +6,32 @@ import { addDelimiter } from "../../utils/addDelimiter";
 import Flex from "../shared/Flex";
 import ListRow from "../shared/ListRow";
 import { Spacing } from "../shared/Spacing";
+import Tag from "../shared/Tag";
 import Text from "../shared/Text";
 
 function Hotel({ hotel }: { hotel: IHotel }) {
+  const tagComponent = () => {
+    if (hotel.events == null) {
+      return null;
+    }
+
+    const { name } = hotel.events;
+
+    console.log(name);
+
+    return (
+      <div>
+        <Tag>{name}</Tag>
+        <Spacing size={8} />
+      </div>
+    );
+  };
   return (
     <div>
       <ListRow
         contents={
           <Flex direction="column">
+            {tagComponent()}
             <ListRow.Texts title={hotel.name} subTitle={hotel.comment} />
             <Spacing size={4} />
             <Text typography="t7" color="gray600">
