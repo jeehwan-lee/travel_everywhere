@@ -6,8 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import styled from "@emotion/styled";
 import { css, Global } from "@emotion/react";
 import globalStyles from "./styles/globalStyles";
-import { QueryClientProvider } from "react-query";
-import { QueryClient } from "react-query/types/core";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const client = new QueryClient({
   defaultOptions: {

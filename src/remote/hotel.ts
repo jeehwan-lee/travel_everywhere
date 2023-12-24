@@ -1,6 +1,5 @@
 import {
   collection,
-  getDoc,
   getDocs,
   limit,
   query,
@@ -8,13 +7,14 @@ import {
   startAfter,
 } from "firebase/firestore";
 import { COLLECTIONS } from "../constants";
+import { Hotel } from "../models/hotel";
 import { store } from "./firebase";
 
-async function getHotels(pageParams?: QuerySnapshot) {
+export async function getHotels(pageParams?: QuerySnapshot<Hotel>) {
   const hotelsQuery =
-    pageParams === null
-      ? query(collection(store, COLLECTIONS.HOTEL), limit(10))
-      : query(
+    pageParams == null
+      ? await query(collection(store, COLLECTIONS.HOTEL), limit(10))
+      : await query(
           collection(store, COLLECTIONS.HOTEL),
           startAfter(pageParams),
           limit(10)
