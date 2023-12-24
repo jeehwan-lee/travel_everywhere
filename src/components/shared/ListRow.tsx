@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { css } from "@emotion/react";
+import { css, SerializedStyles } from "@emotion/react";
 import Flex from "./Flex";
 import Text from "./Text";
 import { IoIosArrowForward } from "react-icons/io";
@@ -12,6 +12,7 @@ interface ListRowProps {
   withArrow?: boolean;
   onClick?: () => void;
   as?: "div" | "li";
+  style?: SerializedStyles;
 }
 
 function ListRow({
@@ -21,12 +22,18 @@ function ListRow({
   right,
   withArrow,
   onClick,
+  style,
 }: ListRowProps) {
   return (
-    <Flex as={as} css={listRowContainerStyles} onClick={onClick} align="center">
-      <Flex css={listRowLeftStyles}>{left}</Flex>
+    <Flex
+      as={as}
+      css={[listRowContainerStyles, style]}
+      onClick={onClick}
+      align="center"
+    >
+      {left && <Flex css={listRowLeftStyles}>{left}</Flex>}
       <Flex css={listRowContentsStyles}>{contents}</Flex>
-      <Flex>{right}</Flex>
+      {right && <Flex>{right}</Flex>}
       {withArrow ? <IconArrowRight /> : null}
     </Flex>
   );

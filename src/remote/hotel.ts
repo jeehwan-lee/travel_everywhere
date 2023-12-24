@@ -22,10 +22,13 @@ export async function getHotels(pageParams?: QuerySnapshot<Hotel>) {
 
   const hotelsSnapshot = await getDocs(hotelsQuery);
 
-  const items = hotelsSnapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
+  const items = hotelsSnapshot.docs.map(
+    (doc) =>
+      ({
+        id: doc.id,
+        ...doc.data(),
+      } as Hotel)
+  );
 
   const lastVisible = hotelsSnapshot.docs[hotelsSnapshot.docs.length - 1];
 
