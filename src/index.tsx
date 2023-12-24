@@ -1,15 +1,29 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 
+import styled from "@emotion/styled";
+import { css } from "@emotion/react";
+
+const Container = styled.div`
+  color: pink;
+`;
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
     <App />
+    <Container>HELOO</Container>
+    <h2
+      css={css`
+        color: pink;
+      `}
+    >
+      REACT
+    </h2>
   </React.StrictMode>
 );
 
