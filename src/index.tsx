@@ -6,6 +6,16 @@ import reportWebVitals from "./reportWebVitals";
 import styled from "@emotion/styled";
 import { css, Global } from "@emotion/react";
 import globalStyles from "./styles/globalStyles";
+import { QueryClientProvider } from "react-query";
+import { QueryClient } from "react-query/types/core";
+
+const client = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 0,
+    },
+  },
+});
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -13,7 +23,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Global styles={globalStyles} />
-    <App />
+    <QueryClientProvider client={client}>
+      <App />
+    </QueryClientProvider>
   </React.StrictMode>
 );
 
