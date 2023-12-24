@@ -48,7 +48,7 @@ export async function getHotel(id: string) {
   } as Hotel;
 }
 
-async function getRecommendHotels(hotelsId: string[]) {
+export async function getRecommendHotels(hotelsId: string[]) {
   const recommendQuery = query(
     collection(store, COLLECTIONS.HOTEL),
     where(documentId(), "in", hotelsId)
