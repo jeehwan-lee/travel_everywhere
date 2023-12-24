@@ -3,7 +3,7 @@
 import React, { Fragment } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import useHotels from "../components/hotel_list/hooks/useHotels";
-import Hotel from "../components/hotel_list/Hotel";
+import Hotel from "../components/hotel_list/HotelItem";
 import { Spacing } from "../components/shared/Spacing";
 import Top from "../components/shared/Top";
 

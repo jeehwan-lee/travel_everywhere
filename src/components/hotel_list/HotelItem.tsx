@@ -12,6 +12,7 @@ import { differenceInMilliseconds } from "date-fns";
 import { parseISO } from "date-fns/parseISO";
 import formatTime from "../../utils/formatTime";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function Hotel({ hotel }: { hotel: IHotel }) {
   const [remainedTime, setRemainedTime] = useState(0);
@@ -66,26 +67,28 @@ function Hotel({ hotel }: { hotel: IHotel }) {
   };
   return (
     <div>
-      <ListRow
-        contents={
-          <Flex direction="column">
-            {tagComponent()}
-            <ListRow.Texts title={hotel.name} subTitle={hotel.comment} />
-            <Spacing size={4} />
-            <Text typography="t7" color="gray600">
-              {hotel.startRating}성급
-            </Text>
-          </Flex>
-        }
-        right={
-          <Flex direction="column" align="flex-end">
-            <img src={hotel.mainImageUrl} alt="" css={imageStyles} />
-            <Spacing size={8} />
-            <Text bold={true}>{addDelimiter(hotel.price)}원</Text>
-          </Flex>
-        }
-        style={containerStyles}
-      />
+      <Link to={`/hotel/${hotel.id}`}>
+        <ListRow
+          contents={
+            <Flex direction="column">
+              {tagComponent()}
+              <ListRow.Texts title={hotel.name} subTitle={hotel.comment} />
+              <Spacing size={4} />
+              <Text typography="t7" color="gray600">
+                {hotel.startRating}성급
+              </Text>
+            </Flex>
+          }
+          right={
+            <Flex direction="column" align="flex-end">
+              <img src={hotel.mainImageUrl} alt="" css={imageStyles} />
+              <Spacing size={8} />
+              <Text bold={true}>{addDelimiter(hotel.price)}원</Text>
+            </Flex>
+          }
+          style={containerStyles}
+        />
+      </Link>
     </div>
   );
 }
