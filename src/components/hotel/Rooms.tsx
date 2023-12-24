@@ -32,6 +32,7 @@ function Rooms({ hotelId }: { hotelId: string }) {
 
           return (
             <ListRow
+              key={room.id}
               left={
                 <img
                   css={imageStyles}
