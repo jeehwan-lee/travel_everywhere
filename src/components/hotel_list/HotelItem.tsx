@@ -80,7 +80,16 @@ function Hotel({ hotel }: { hotel: IHotel }) {
             </Flex>
           }
           right={
-            <Flex direction="column" align="flex-end">
+            <Flex
+              style={{ position: "relative" }}
+              direction="column"
+              align="flex-end"
+            >
+              <img
+                css={iconHeartStyles}
+                src="https://cdn4.iconfinder.com/data/icons/twitter-29/512/166_Heart_Love_Like_Twitter-512.png"
+                alt=""
+              />
               <img src={hotel.mainImageUrl} alt="" css={imageStyles} />
               <Spacing size={8} />
               <Text bold={true}>{addDelimiter(hotel.price)}원</Text>
@@ -103,5 +112,13 @@ const imageStyles = css`
 
 const containerStyles = css`
   align-items: flex-start;
+`;
+
+const iconHeartStyles = css`
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 30px;
+  height: 30px;
 `;
 export default Hotel;
