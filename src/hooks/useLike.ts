@@ -12,7 +12,7 @@ function useLike() {
     }
   );
 
-  return data;
+  return { data };
 }
 
 export default useLike;

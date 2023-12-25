@@ -14,7 +14,7 @@ import formatTime from "../../utils/formatTime";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-function Hotel({ hotel }: { hotel: IHotel }) {
+function Hotel({ hotel, isLike }: { hotel: IHotel; isLike: boolean }) {
   const [remainedTime, setRemainedTime] = useState(0);
 
   useEffect(() => {
@@ -87,7 +87,11 @@ function Hotel({ hotel }: { hotel: IHotel }) {
             >
               <img
                 css={iconHeartStyles}
-                src="https://cdn4.iconfinder.com/data/icons/twitter-29/512/166_Heart_Love_Like_Twitter-512.png"
+                src={
+                  isLike
+                    ? "https://cdn4.iconfinder.com/data/icons/twitter-29/512/166_Heart_Love_Like_Twitter-512.png"
+                    : "https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-heart-outline-64.png"
+                }
                 alt=""
               />
               <img src={hotel.mainImageUrl} alt="" css={imageStyles} />
