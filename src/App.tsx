@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AuthGuard from "./components/auth/AuthGuard";
+import Navbar from "./components/shared/Navbar";
 import useLoadKaKao from "./hooks/useLoadKaKao";
 import Hotel from "./pages/Hotel";
 import HotelList from "./pages/HotelList";
@@ -13,6 +14,7 @@ function App() {
   return (
     <BrowserRouter>
       <AuthGuard>
+        <Navbar />
         <Routes>
           <Route path="/" element={<HotelList />} />
           <Route path="/hotel/:id" element={<Hotel />} />

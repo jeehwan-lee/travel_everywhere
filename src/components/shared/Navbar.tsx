@@ -6,10 +6,11 @@ import Button from "./Button";
 import { css } from "@emotion/react";
 import { colors } from "../../styles/colorPalette";
 import { useCallback } from "react";
+import useUser from "../../hooks/auth/userUser";
 
 function Navbar() {
   const location = useLocation();
-  const user = null;
+  const user = useUser();
 
   const showSignButton =
     ["/signup", "/signin"].includes(location.pathname) == false;
@@ -19,7 +20,16 @@ function Navbar() {
       return (
         <>
           <Link to="/my">
-            <img />
+            <img
+              src={
+                user.photoURL ??
+                "https://cdn4.iconfinder.com/data/icons/glyphs/24/icons_user2-64.png"
+              }
+              alt=""
+              width={40}
+              height={40}
+              style={{ borderRadius: "100%" }}
+            />
           </Link>
         </>
       );
