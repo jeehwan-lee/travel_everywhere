@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
-import { Hotel as IHotel } from "../../models/hotel";
+import { Hotel, Hotel as IHotel } from "../../models/hotel";
 import { addDelimiter } from "../../utils/addDelimiter";
 import Flex from "../shared/Flex";
 import ListRow from "../shared/ListRow";
@@ -14,7 +14,19 @@ import formatTime from "../../utils/formatTime";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-function Hotel({ hotel, isLike }: { hotel: IHotel; isLike: boolean }) {
+function HotelItem({
+  hotel,
+  isLike,
+  onLike,
+}: {
+  hotel: IHotel;
+  isLike: boolean;
+  onLike: ({
+    hotel,
+  }: {
+    hotel: Pick<IHotel, "name" | "id" | "mainImageUrl">;
+  }) => void;
+}) {
   const [remainedTime, setRemainedTime] = useState(0);
 
   useEffect(() => {
@@ -65,6 +77,18 @@ function Hotel({ hotel, isLike }: { hotel: IHotel; isLike: boolean }) {
       </div>
     );
   };
+
+  const handleLike = (e: any) => {
+    e.preventDefault();
+    onLike({
+      hotel: {
+        name: hotel.name,
+        mainImageUrl: hotel.mainImageUrl,
+        id: hotel.id,
+      },
+    });
+  };
+
   return (
     <div>
       <Link to={`/hotel/${hotel.id}`}>
@@ -93,6 +117,7 @@ function Hotel({ hotel, isLike }: { hotel: IHotel; isLike: boolean }) {
                     : "https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-heart-outline-64.png"
                 }
                 alt=""
+                onClick={handleLike}
               />
               <img src={hotel.mainImageUrl} alt="" css={imageStyles} />
               <Spacing size={8} />
@@ -125,4 +150,4 @@ const iconHeartStyles = css`
   width: 30px;
   height: 30px;
 `;
-export default Hotel;
+export default HotelItem;

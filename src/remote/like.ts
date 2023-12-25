@@ -34,7 +34,7 @@ export async function getLikes({ userId }: { userId: string }) {
   );
 }
 
-export async function toogleList({
+export async function toggleLike({
   hotel,
   userId,
 }: {
