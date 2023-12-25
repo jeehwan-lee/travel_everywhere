@@ -1,6 +1,6 @@
 import { FirebaseError } from "firebase/app";
 import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
-import { collection, doc, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { COLLECTIONS } from "../constants";
@@ -15,16 +15,27 @@ function useGoogleSignin() {
     try {
       const { user } = await signInWithPopup(auth, provider);
 
-      const newUser = {
-        uid: user.uid,
-        email: user.email,
-        displayName: user.displayName,
-        photoUrl: user.photoURL,
-      };
+      const snapshot = await getDoc(
+        doc(collection(store, COLLECTIONS.USER), user.uid)
+      );
 
-      await setDoc(doc(collection(store, COLLECTIONS.USER), user.uid), newUser);
+      if (snapshot.exists()) {
+        navigate("/");
+      } else {
+        const newUser = {
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          photoUrl: user.photoURL,
+        };
 
-      navigate("/");
+        await setDoc(
+          doc(collection(store, COLLECTIONS.USER), user.uid),
+          newUser
+        );
+
+        navigate("/");
+      }
     } catch (error) {
       if (error instanceof FirebaseError) {
         if (error.code === "auth/popup-closed-by-user") {
