@@ -34,6 +34,8 @@ function useShare() {
     },
     []
   );
+
+  return handleShare;
 }
 
 export default useShare;
