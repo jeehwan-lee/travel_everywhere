@@ -25,6 +25,8 @@ export async function getLikes({ userId }: { userId: string }) {
     )
   );
 
+  console.log(snapshot.docs[0].data());
+
   return snapshot.docs.map(
     (doc) =>
       ({
