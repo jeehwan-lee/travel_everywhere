@@ -21,7 +21,6 @@ function Rooms({ hotelId }: { hotelId: string }) {
   const { open } = useAlertContext();
   const navigate = useNavigate();
 
-  console.log(data);
   return (
     <Container>
       <Flex justify="space-between" align="center" css={headerStyles}>
