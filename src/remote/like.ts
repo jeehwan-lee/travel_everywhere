@@ -105,7 +105,7 @@ export function updateOrder(likes: Like[]) {
 
   likes.forEach((like, index) => {
     batch.update(doc(collection(store, COLLECTIONS.LIKE), like.id), {
-      order: index + 1,
+      order: like.order,
     });
   });
 
