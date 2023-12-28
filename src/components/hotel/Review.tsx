@@ -10,7 +10,7 @@ import { TextField } from "../shared/TextField";
 import useReview from "./hooks/useReview";
 
 function Review({ hotelId }: { hotelId: string }) {
-  const { data: reviews, isLoading, write } = useReview({ hotelId });
+  const { data: reviews, isLoading, write, remove } = useReview({ hotelId });
   const user = useUser();
 
   const [text, setText] = useState<string>("");
@@ -56,7 +56,17 @@ function Review({ hotelId }: { hotelId: string }) {
                   subTitle={format(review.createdAt, "yyyy-MM-dd")}
                 />
               }
-              right={review.userId === user?.uid ? <Button>삭제</Button> : null}
+              right={
+                review.userId === user?.uid ? (
+                  <Button
+                    onClick={() => {
+                      remove({ reviewId: review.id, hotelId: hotelId });
+                    }}
+                  >
+                    삭제
+                  </Button>
+                ) : null
+              }
             />
           );
         })}
