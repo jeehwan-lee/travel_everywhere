@@ -1,4 +1,5 @@
 import { useQuery } from "react-query";
+import { useAlertContext } from "../../../contexts/AlertContext";
 import { getHotelWithRoom } from "../../../remote/hotel";
 
 function useReservation({
@@ -8,11 +9,26 @@ function useReservation({
   hotelId: string;
   roomId: string;
 }) {
-  const { data } = useQuery(["hotelWithRoom", hotelId, roomId], () =>
-    getHotelWithRoom({ hotelId, roomId })
+  const { open } = useAlertContext();
+
+  const { data, isLoading } = useQuery(
+    ["hotelWithRoom", hotelId, roomId],
+    () => getHotelWithRoom({ hotelId, roomId }),
+    {
+      onSuccess: ({ room }) => {
+        if (room.avaliableCount === 0) {
+          open({
+            title: "객실이 매진되었습니다.",
+            onButtonClick: () => {
+              window.history.back();
+            },
+          });
+        }
+      },
+    }
   );
 
-  return { data };
+  return { data, isLoading };
 }
 
 export default useReservation;
