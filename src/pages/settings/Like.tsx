@@ -4,48 +4,70 @@ import {
   Draggable,
   Droppable,
   DroppableProps,
+  DropResult,
 } from "react-beautiful-dnd";
 import useEditLike from "../../components/settings/like/hooks/useEditLike";
+import FixedBottomButton from "../../components/shared/FixedBottomButton";
 import ListRow from "../../components/shared/ListRow";
 import useLike from "../../hooks/useLike";
 
 function LikePage() {
-  const { data } = useEditLike();
+  const { data, isEdit, reorder } = useEditLike();
 
-  console.log(data);
+  const handleDragEndDrop = (result: DropResult) => {
+    if (result.destination == null) {
+      return;
+    }
+
+    const from = result.source.index;
+    const to = result.destination?.index;
+
+    reorder(from, to);
+  };
 
   return (
-    <DragDropContext onDragEnd={() => {}}>
-      <StrickModeDroppable droppableId="likes">
-        {(droppableProps) => (
-          <ul ref={droppableProps.innerRef} {...droppableProps.droppableProps}>
-            {data?.map((like, index) => {
-              return (
-                <Draggable key={like.id} draggableId={like.id} index={index}>
-                  {(draggableProps) => (
-                    <li
-                      ref={draggableProps.innerRef}
-                      {...draggableProps.draggableProps}
-                      {...draggableProps.dragHandleProps}
-                    >
-                      <ListRow
-                        as="div"
-                        contents={
-                          <ListRow.Texts
-                            title={like.order}
-                            subTitle={like.hotelName}
-                          />
-                        }
-                      />
-                    </li>
-                  )}
-                </Draggable>
-              );
-            })}
-          </ul>
-        )}
-      </StrickModeDroppable>
-    </DragDropContext>
+    <>
+      <DragDropContext onDragEnd={handleDragEndDrop}>
+        <StrickModeDroppable droppableId="likes">
+          {(droppableProps) => (
+            <ul
+              ref={droppableProps.innerRef}
+              {...droppableProps.droppableProps}
+            >
+              {data?.map((like, index) => {
+                return (
+                  <Draggable key={like.id} draggableId={like.id} index={index}>
+                    {(draggableProps) => (
+                      <li
+                        ref={draggableProps.innerRef}
+                        {...draggableProps.draggableProps}
+                        {...draggableProps.dragHandleProps}
+                      >
+                        <ListRow
+                          as="div"
+                          contents={
+                            <ListRow.Texts
+                              title={like.order}
+                              subTitle={like.hotelName}
+                            />
+                          }
+                        />
+                      </li>
+                    )}
+                  </Draggable>
+                );
+              })}
+            </ul>
+          )}
+        </StrickModeDroppable>
+      </DragDropContext>
+      {isEdit ? (
+        <FixedBottomButton
+          label="저장하기"
+          onClick={() => console.log("hello")}
+        />
+      ) : null}
+    </>
   );
 }
 
