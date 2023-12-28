@@ -7,7 +7,9 @@ import {
   orderBy,
   query,
   setDoc,
+  updateDoc,
 } from "firebase/firestore";
+import { updateDo } from "typescript";
 import { COLLECTIONS } from "../constants";
 import { Review } from "../models/review";
 import { User } from "../models/user";
@@ -67,6 +69,16 @@ export function writeReview(review: Omit<Review, "id">) {
   const reviewRef = doc(collection(hotelRef, COLLECTIONS.REVIEW));
 
   return setDoc(reviewRef, review);
+}
+
+export function modifyReview(review: Review) {
+  const hotelRef = doc(store, COLLECTIONS.HOTEL, review.hotelId);
+  const reviewRef = doc(collection(hotelRef, COLLECTIONS.REVIEW), review.id);
+
+  return updateDoc(reviewRef, {
+    text: review.text,
+    createdAt: review.createdAt,
+  });
 }
 
 export function removeReview({

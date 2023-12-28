@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { ChangeEvent, useCallback, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import useUser from "../../hooks/auth/userUser";
 import Button from "../shared/Button";
 import Flex from "../shared/Flex";
@@ -10,10 +10,18 @@ import { TextField } from "../shared/TextField";
 import useReview from "./hooks/useReview";
 
 function Review({ hotelId }: { hotelId: string }) {
-  const { data: reviews, isLoading, write, remove } = useReview({ hotelId });
+  const {
+    data: reviews,
+    isLoading,
+    write,
+    remove,
+    modify,
+  } = useReview({ hotelId });
   const user = useUser();
 
   const [text, setText] = useState<string>("");
+  const [modifiedReviewText, setModifiedReviewText] = useState<string>("");
+  const [reviewEditMode, setReviewEditMode] = useState<boolean>(false);
 
   const handleTextChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -52,19 +60,56 @@ function Review({ hotelId }: { hotelId: string }) {
               }
               contents={
                 <ListRow.Texts
-                  title={review.text}
+                  title={
+                    reviewEditMode === false ? (
+                      review.text
+                    ) : (
+                      <TextField
+                        value={modifiedReviewText}
+                        onChange={(e) => {
+                          setModifiedReviewText(e.target.value);
+                        }}
+                      />
+                    )
+                  }
                   subTitle={format(review.createdAt, "yyyy-MM-dd")}
                 />
               }
               right={
                 review.userId === user?.uid ? (
-                  <Button
-                    onClick={() => {
-                      remove({ reviewId: review.id, hotelId: hotelId });
-                    }}
-                  >
-                    삭제
-                  </Button>
+                  <>
+                    {reviewEditMode === false ? (
+                      <>
+                        <Button
+                          weak={true}
+                          onClick={() => {
+                            remove({ reviewId: review.id, hotelId: hotelId });
+                          }}
+                        >
+                          삭제
+                        </Button>
+                        <Spacing size={4} direction="horizontal" />
+                        <Button onClick={() => setReviewEditMode(true)}>
+                          수정
+                        </Button>
+                      </>
+                    ) : (
+                      <>
+                        {reviewEditMode}
+                        <Button
+                          onClick={() => {
+                            modify({
+                              text: modifiedReviewText,
+                              reviewId: review.id,
+                            });
+                            setReviewEditMode(false);
+                          }}
+                        >
+                          확인
+                        </Button>
+                      </>
+                    )}
+                  </>
                 ) : null
               }
             />
@@ -72,7 +117,7 @@ function Review({ hotelId }: { hotelId: string }) {
         })}
       </ul>
     );
-  }, [reviews, user]);
+  }, [reviews, user, reviewEditMode, modifiedReviewText]);
 
   if (isLoading === true) {
     return null;

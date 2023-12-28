@@ -1,6 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import useUser from "../../../hooks/auth/userUser";
-import { getReviews, removeReview, writeReview } from "../../../remote/review";
+import {
+  getReviews,
+  modifyReview,
+  removeReview,
+  writeReview,
+} from "../../../remote/review";
 
 function useReview({ hotelId }: { hotelId: string }) {
   const { data, isLoading } = useQuery(["reviews", hotelId], () =>
@@ -29,6 +34,27 @@ function useReview({ hotelId }: { hotelId: string }) {
     }
   );
 
+  const { mutateAsync: modify } = useMutation(
+    async ({ text, reviewId }: { text: string; reviewId: string }) => {
+      const modifiedReview = {
+        id: reviewId,
+        createdAt: new Date(),
+        hotelId,
+        userId: user?.uid as string,
+        text,
+      };
+
+      await modifyReview(modifiedReview);
+
+      return true;
+    },
+    {
+      onSuccess: () => {
+        client.invalidateQueries(["reviews", hotelId]);
+      },
+    }
+  );
+
   const { mutate: remove } = useMutation(
     ({ reviewId, hotelId }: { reviewId: string; hotelId: string }) => {
       return removeReview({ reviewId, hotelId });
@@ -40,7 +66,7 @@ function useReview({ hotelId }: { hotelId: string }) {
     }
   );
 
-  return { data, isLoading, write, remove };
+  return { data, isLoading, write, remove, modify };
 }
 
 export default useReview;
