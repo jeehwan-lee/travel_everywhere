@@ -10,9 +10,16 @@ import { Spacing } from "../shared/Spacing";
 import Tag from "../shared/Tag";
 import Text from "../shared/Text";
 import useRooms from "./hooks/useRooms";
+import qs from "qs";
+import useUser from "../../hooks/auth/userUser";
+import { useAlertContext } from "../../contexts/AlertContext";
+import { useNavigate } from "react-router-dom";
 
 function Rooms({ hotelId }: { hotelId: string }) {
   const { data } = useRooms({ hotelId });
+  const user = useUser();
+  const { open } = useAlertContext();
+  const navigate = useNavigate();
 
   console.log(data);
   return (
@@ -29,6 +36,16 @@ function Rooms({ hotelId }: { hotelId: string }) {
         {data?.map((room) => {
           const isDeadline = room.avaliableCount === 1;
           const isSoldOut = room.avaliableCount === 0;
+
+          const params = qs.stringify(
+            {
+              roomId: room.id,
+              hotelId,
+            },
+            {
+              addQueryPrefix: true,
+            }
+          );
 
           return (
             <ListRow
@@ -59,7 +76,24 @@ function Rooms({ hotelId }: { hotelId: string }) {
                 ></ListRow.Texts>
               }
               right={
-                <Button size="medium" disabled={isSoldOut}>
+                <Button
+                  size="medium"
+                  disabled={isSoldOut}
+                  onClick={() => {
+                    if (user === null) {
+                      open({
+                        title: "로그인이 필요한 기능입니다",
+                        onButtonClick: () => {
+                          navigate("/signin");
+                        },
+                      });
+
+                      return;
+                    }
+
+                    navigate(`/schedule${params}`);
+                  }}
+                >
                   {isSoldOut === true ? "매진" : "선택"}
                 </Button>
               }
