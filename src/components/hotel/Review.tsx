@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { useCallback } from "react";
+import { ChangeEvent, useCallback, useState } from "react";
 import useUser from "../../hooks/auth/userUser";
 import Button from "../shared/Button";
 import Flex from "../shared/Flex";
@@ -10,8 +10,17 @@ import { TextField } from "../shared/TextField";
 import useReview from "./hooks/useReview";
 
 function Review({ hotelId }: { hotelId: string }) {
-  const { data: reviews, isLoading } = useReview({ hotelId });
+  const { data: reviews, isLoading, write } = useReview({ hotelId });
   const user = useUser();
+
+  const [text, setText] = useState<string>("");
+
+  const handleTextChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      setText(e.target.value);
+    },
+    [text]
+  );
 
   const reviewRows = useCallback(() => {
     if (reviews?.length === 0) {
@@ -44,7 +53,7 @@ function Review({ hotelId }: { hotelId: string }) {
               contents={
                 <ListRow.Texts
                   title={review.text}
-                  subTitle={format(review.createdAt, "YYYY-MM-dd")}
+                  subTitle={format(review.createdAt, "yyyy-MM-dd")}
                 />
               }
               right={review.userId === user?.uid ? <Button>삭제</Button> : null}
@@ -69,10 +78,21 @@ function Review({ hotelId }: { hotelId: string }) {
       <Spacing size={20} />
       {user != null ? (
         <div>
-          <TextField />
+          <TextField value={text} onChange={handleTextChange} />
           <Spacing size={6} />
           <Flex justify="flex-end">
-            <Button disabled={true}>작성</Button>
+            <Button
+              disabled={text === ""}
+              onClick={async () => {
+                const success = await write(text);
+
+                if (success === true) {
+                  setText("");
+                }
+              }}
+            >
+              작성
+            </Button>
           </Flex>
         </div>
       ) : null}
