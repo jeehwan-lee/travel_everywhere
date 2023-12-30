@@ -17,4 +17,23 @@ export interface Hotel {
     };
   };
   recommendHotels: string[];
+  forms: ReservationForm[];
 }
+
+interface BaseForm {
+  id: string;
+  label: string;
+  required: string;
+  help?: string;
+}
+
+interface TextFieldForm extends BaseForm {
+  type: "TEXT_FILED";
+}
+
+interface SelectFieldForm extends BaseForm {
+  type: "SELECT";
+  options: Array<{ label: string; value: string }>;
+}
+
+type ReservationForm = TextFieldForm | SelectFieldForm;
