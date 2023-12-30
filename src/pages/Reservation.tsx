@@ -1,4 +1,5 @@
 import { parse } from "qs";
+import Form from "../components/reservation/Form";
 import useReservation from "../components/reservation/hooks/useReservation";
 import Summary from "../components/reservation/Summary";
 import { Spacing } from "../components/shared/Spacing";
@@ -23,6 +24,8 @@ function Reservation() {
 
   const { room, hotel } = data;
 
+  const handleSubmit = () => {};
+
   return (
     <div>
       <Summary
@@ -33,6 +36,7 @@ function Reservation() {
         nights={nights}
       />
       <Spacing size={8} backgroundColor="gray100" />
+      <Form onSubmit={handleSubmit} forms={hotel.forms} />
     </div>
   );
 }

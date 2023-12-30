@@ -24,11 +24,11 @@ interface BaseForm {
   id: string;
   label: string;
   required: string;
-  help?: string;
+  helpMessage?: string;
 }
 
 interface TextFieldForm extends BaseForm {
-  type: "TEXT_FILED";
+  type: "TEXT_FIELD";
 }
 
 interface SelectFieldForm extends BaseForm {
@@ -36,4 +36,4 @@ interface SelectFieldForm extends BaseForm {
   options: Array<{ label: string; value: string }>;
 }
 
-type ReservationForm = TextFieldForm | SelectFieldForm;
+export type ReservationForm = TextFieldForm | SelectFieldForm;
