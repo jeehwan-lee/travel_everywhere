@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { Fragment, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { Hotel, ReservationForm } from "../../models/hotel";
 import FixedBottomButton from "../shared/FixedBottomButton";
@@ -17,8 +17,6 @@ function Form({
   onSubmit: () => void;
 }) {
   const { register, formState, handleSubmit } = useForm({ mode: "onBlur" });
-
-  const submit = () => {};
 
   const component = useCallback(
     (form: ReservationForm) => {
@@ -58,9 +56,15 @@ function Form({
   return (
     <div style={{ padding: 24 }}>
       <Text bold={true}>예약정보</Text>
+      <Spacing size={16} />
       <form>
         {forms.map((form) => {
-          return <>{component(form)}</>;
+          return (
+            <Fragment key={form.id}>
+              {component(form)}
+              <Spacing size={8} />
+            </Fragment>
+          );
         })}
       </form>
       <Spacing size={80} />
