@@ -18,7 +18,7 @@ export async function makeReservation(newReservation: Reservation) {
   }
 
   await updateDoc(roomSnapshot.ref, {
-    availableCount: availableRoomCount - 1,
+    avaliableCount: availableRoomCount - 1,
   });
 
   await setDoc(doc(collection(store, COLLECTIONS.RESERVATION)), newReservation);
