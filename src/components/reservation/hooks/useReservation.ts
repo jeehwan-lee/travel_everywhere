@@ -1,6 +1,8 @@
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { useAlertContext } from "../../../contexts/AlertContext";
+import { Reservation } from "../../../models/reservation";
 import { getHotelWithRoom } from "../../../remote/hotel";
+import { makeReservation } from "../../../remote/reservation";
 
 function useReservation({
   hotelId,
@@ -28,7 +30,21 @@ function useReservation({
     }
   );
 
-  return { data, isLoading };
+  const { mutateAsync } = useMutation(
+    (newReservation: Reservation) => makeReservation(newReservation),
+    {
+      onError: () => {
+        open({
+          title: "알 수 없는 에러가 발생했습니다.",
+          onButtonClick: () => {
+            window.history.back();
+          },
+        });
+      },
+    }
+  );
+
+  return { data, isLoading, makeReservation: mutateAsync };
 }
 
 export default useReservation;
