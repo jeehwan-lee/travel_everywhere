@@ -7,6 +7,9 @@ import { Spacing } from "../shared/Spacing";
 import Text from "../shared/Text";
 import { TextField } from "../shared/TextField";
 
+type FormData = {
+  [key: string]: string;
+};
 function Form({
   buttonLabel,
   forms,
@@ -14,13 +17,14 @@ function Form({
 }: {
   buttonLabel: string;
   forms: Hotel["forms"];
-  onSubmit: () => void;
+  onSubmit: (formValues: FormData) => void;
 }) {
-  const { register, formState, handleSubmit } = useForm({ mode: "onBlur" });
+  const { register, formState, handleSubmit } = useForm<FormData>({
+    mode: "onBlur",
+  });
 
   const component = useCallback(
     (form: ReservationForm) => {
-      console.log(form);
       if (form.type === "TEXT_FIELD") {
         return (
           <TextField
@@ -68,10 +72,7 @@ function Form({
         })}
       </form>
       <Spacing size={80} />
-      <FixedBottomButton
-        label={buttonLabel}
-        onClick={() => handleSubmit(onSubmit)}
-      />
+      <FixedBottomButton label={buttonLabel} onClick={handleSubmit(onSubmit)} />
     </div>
   );
 }
@@ -87,7 +88,7 @@ const VALIDATION_MESSAGE_MAP: {
     message: "한글명을 확인해주세요",
   },
   email: {
-    value: /^[a-zA-Z0-9+-\_.]\+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+    value: /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
     message: "이메일 형식을 확인해주세요",
   },
   phone: {

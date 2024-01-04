@@ -3,9 +3,11 @@ import Form from "../components/reservation/Form";
 import useReservation from "../components/reservation/hooks/useReservation";
 import Summary from "../components/reservation/Summary";
 import { Spacing } from "../components/shared/Spacing";
+import useUser from "../hooks/auth/userUser";
 import { addDelimiter } from "../utils/addDelimiter";
 
 function Reservation() {
+  const user = useUser();
   const { startDate, endDate, nights, roomId, hotelId } = parse(
     window.location.search,
     { ignoreQueryPrefix: true }
@@ -25,7 +27,17 @@ function Reservation() {
 
   const { room, hotel } = data;
 
-  const handleSubmit = () => {};
+  const handleSubmit = (formValues: { [key: string]: string }) => {
+    const newReservation = {
+      userId: user?.uid as string,
+      hotelId,
+      roomId,
+      startDate,
+      endDate,
+      price: room.price * Number(nights),
+      formValues,
+    };
+  };
 
   const buttonLabel = `${nights}박 ${addDelimiter(
     room.price * Number(nights)
