@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { SelectHTMLAttributes, forwardRef } from "react";
+import { SelectHTMLAttributes, forwardRef, useState } from "react";
 import Flex from "./Flex";
 import Text from "./Text";
 import { colors } from "../../styles/colorPalette";
@@ -30,19 +30,30 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
   { label, options, placeholder, value, ...props },
   ref
 ) {
+  const [focused, setFocused] = useState(false);
+
+  const labelColor = focused ? "blue" : undefined;
+
   return (
     <Flex direction="column">
       {label ? (
         <Text
           typography="t7"
-          color="black"
+          color={labelColor}
           display="inline-block"
           style={{ marginBottom: 6 }}
         >
           {label}
         </Text>
       ) : null}
-      <BaseSelect required={true} ref={ref} value={value} {...props}>
+      <BaseSelect
+        required={true}
+        ref={ref}
+        value={value}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        {...props}
+      >
         <option disabled={true} hidden={true} value="">
           {placeholder}
         </option>
