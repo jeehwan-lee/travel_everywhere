@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ContentEditor from "../components/register/ContentEditor";
+import Map from "../components/register/Map";
 import FixedBottomButton from "../components/shared/FixedBottomButton";
 import Select from "../components/shared/Select";
 import { Spacing } from "../components/shared/Spacing";
@@ -95,6 +96,8 @@ function Register() {
         value={newHotel.startRating}
         onChange={handleChange}
       />
+      <Spacing size={8} />
+      <Map />
       <Spacing size={80} />
       <FixedBottomButton label="등록하기" onClick={handleSubmit} />
     </div>
