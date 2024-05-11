@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import ReactMarkdown from "react-markdown";
 import { useNavigate } from "react-router-dom";
+import Contents from "../components/hotel/Contents";
 import FixedBottomButton from "../components/shared/FixedBottomButton";
 import { Spacing } from "../components/shared/Spacing";
 import Text from "../components/shared/Text";

@@ -1,11 +1,12 @@
 import styled from "@emotion/styled";
 import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 import { typographyMap } from "../../styles/typography";
 
 function Contents({ contents }: { contents: string }) {
   return (
     <ContainerStyles>
-      <ReactMarkdown>{contents}</ReactMarkdown>
+      <ReactMarkdown rehypePlugins={[rehypeRaw]}>{contents}</ReactMarkdown>
     </ContainerStyles>
   );
 }
