@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import ReactMarkdown from "react-markdown";
 import { useNavigate } from "react-router-dom";
-import Contents from "../components/hotel/Contents";
+import ContentEditor from "../components/register/ContentEditor";
 import FixedBottomButton from "../components/shared/FixedBottomButton";
 import { Spacing } from "../components/shared/Spacing";
 import Text from "../components/shared/Text";
 import { TextField } from "../components/shared/TextField";
-import { Hotel } from "../models/hotel";
 import { RegisterHotel } from "../models/register";
 import { registerHotel } from "../remote/register";
 
@@ -51,11 +49,9 @@ function Register() {
           onChange={handleChange}
         />
         <Spacing size={8} />
-        <TextField
-          label="호텔상세"
-          name="contents"
-          value={newHotel.contents}
-          onChange={handleChange}
+        <ContentEditor
+          label="호텔 상세"
+          helpMessage="호텔에 대한 상세내용을 작성해주세요"
         />
         <Spacing size={8} />
         <TextField
@@ -71,6 +67,7 @@ function Register() {
           value={newHotel.startRating}
           onChange={handleChange}
         />
+        <Spacing size={80} />
         <FixedBottomButton label="등록하기" onClick={handleSubmit} />
       </div>
     </div>
