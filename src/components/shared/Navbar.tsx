@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Flex from "./Flex";
 import Button from "./Button";
 import { css } from "@emotion/react";
@@ -11,6 +11,7 @@ import { Spacing } from "./Spacing";
 
 function Navbar() {
   const location = useLocation();
+  const navigate = useNavigate();
   const user = useUser();
 
   const showSignButton =
@@ -21,6 +22,8 @@ function Navbar() {
       return (
         <>
           <Flex justify="center" align="center">
+            <Button onClick={() => navigate("/register")}>등록하기</Button>
+            <Spacing size={8} direction="horizontal" />
             <Link to="/my">
               <img
                 src={
