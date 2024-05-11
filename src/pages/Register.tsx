@@ -40,7 +40,7 @@ function Register() {
     contents: "",
     name: "",
     price: 0,
-    startRating: 0,
+    startRating: 5,
   });
 
   const handleChange = (e: { target: { name: any; value: any } }) => {
@@ -73,6 +73,10 @@ function Register() {
       />
       <Spacing size={8} />
       <ContentEditor
+        name="contents"
+        onChangeEditor={(value: string) =>
+          setNewHotel({ ...newHotel, contents: value })
+        }
         label="호텔 상세"
         helpMessage="호텔에 대한 상세내용을 작성해주세요"
       />

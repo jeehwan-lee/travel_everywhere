@@ -7,9 +7,15 @@ interface ContentEditorProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: React.ReactNode;
   hasError?: boolean;
   helpMessage?: React.ReactNode;
+  onChangeEditor: (e: string) => void;
 }
 
-function ContentEditor({ label, hasError, helpMessage }: ContentEditorProps) {
+function ContentEditor({
+  label,
+  hasError,
+  helpMessage,
+  onChangeEditor,
+}: ContentEditorProps) {
   const [focused, setFocused] = useState(false);
 
   const modules = {
@@ -49,6 +55,7 @@ function ContentEditor({ label, hasError, helpMessage }: ContentEditorProps) {
         onBlur={() => {
           setFocused(false);
         }}
+        onChange={onChangeEditor}
       />
       {helpMessage ? (
         <Text
