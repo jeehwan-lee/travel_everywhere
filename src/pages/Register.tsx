@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ContentEditor from "../components/register/ContentEditor";
 import Map from "../components/register/Map";
@@ -42,10 +42,27 @@ function Register() {
     name: "",
     price: 0,
     startRating: 5,
+    location: { x: 0, y: 0 },
   });
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setNewHotel({
+        ...newHotel,
+        location: { x: position.coords.latitude, y: position.coords.longitude },
+      });
+    });
+  }, []);
 
   const handleChange = (e: { target: { name: any; value: any } }) => {
     setNewHotel({ ...newHotel, [e.target.name]: e.target.value });
+  };
+
+  const handleLocation = (e: any) => {
+    setNewHotel({
+      ...newHotel,
+      location: { x: e.latLng?.lat(), y: e.latLng?.lng() },
+    });
   };
 
   const handleSubmit = async () => {
@@ -97,7 +114,7 @@ function Register() {
         onChange={handleChange}
       />
       <Spacing size={8} />
-      <Map />
+      <Map location={newHotel.location} setNewLocation={handleLocation} />
       <Spacing size={80} />
       <FixedBottomButton label="등록하기" onClick={handleSubmit} />
     </div>

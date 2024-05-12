@@ -1,11 +1,16 @@
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 import { useState } from "react";
+import { RegisterHotel } from "../../models/register";
 import Flex from "../shared/Flex";
 import Text from "../shared/Text";
 
-function Map() {
-  const [location, setLocation] = useState<any>(null);
-
+function Map({
+  location,
+  setNewLocation,
+}: {
+  location: RegisterHotel["location"];
+  setNewLocation: (e: any) => void;
+}) {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API as string,
@@ -28,17 +33,13 @@ function Map() {
           boxSizing: "border-box",
         }}
         center={{
-          lat: 37.715133,
-          lng: 126.734086,
+          lat: location.x,
+          lng: location.y,
         }}
         zoom={15}
-        onClick={(e) =>
-          setLocation({ lat: e.latLng?.lat(), lng: e.latLng?.lng() })
-        }
+        onClick={setNewLocation}
       >
-        {location && (
-          <Marker position={{ lat: location.lat, lng: location.lng }} />
-        )}
+        {location && <Marker position={{ lat: location.x, lng: location.y }} />}
       </GoogleMap>
     </Flex>
   );
