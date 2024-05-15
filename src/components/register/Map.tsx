@@ -23,7 +23,7 @@ function Map({
   return (
     <Flex direction="column" style={{ paddingTop: "24px" }}>
       <Text typography="t4" bold={true}>
-        기본정보
+        위치정보
       </Text>
       <GoogleMap
         mapContainerStyle={{

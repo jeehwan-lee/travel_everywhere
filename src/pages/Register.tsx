@@ -3,12 +3,15 @@ import { useNavigate } from "react-router-dom";
 import ContentEditor from "../components/register/ContentEditor";
 import Map from "../components/register/Map";
 import FixedBottomButton from "../components/shared/FixedBottomButton";
+import Flex from "../components/shared/Flex";
 import Select from "../components/shared/Select";
 import { Spacing } from "../components/shared/Spacing";
 import Text from "../components/shared/Text";
 import { TextField } from "../components/shared/TextField";
 import { RegisterHotel } from "../models/register";
-import { registerHotel } from "../remote/register";
+import { PiImagesThin } from "react-icons/pi";
+import UploadImageItem from "../components/register/UploadImageItem";
+import Grid from "../components/shared/Grid";
 
 function Register() {
   const navigate = useNavigate();
@@ -73,7 +76,9 @@ function Register() {
 
   return (
     <div style={{ padding: 24 }}>
-      <Text bold={true}>호텔정보</Text>
+      <Text typography="t4" bold={true}>
+        호텔정보
+      </Text>
       <Spacing size={16} />
       <TextField
         label="호텔명"
@@ -115,6 +120,31 @@ function Register() {
       />
       <Spacing size={8} />
       <Map location={newHotel.location} setNewLocation={handleLocation} />
+      <Spacing size={20} />
+      <Flex justify="center" align="center" direction="column">
+        <Flex
+          direction="column"
+          align="center"
+          style={{
+            border: "dashed 2px black",
+            borderRadius: "10px",
+            width: "100%",
+            height: "500px",
+          }}
+        >
+          <PiImagesThin style={{ width: "100%", height: "100%" }} />
+          <Text typography="t4" bold={true}>
+            UPLOAD
+          </Text>
+        </Flex>
+        <Spacing size={50} />
+        <Grid>
+          <UploadImageItem />
+          <UploadImageItem />
+          <UploadImageItem />
+          <UploadImageItem />
+        </Grid>
+      </Flex>
       <Spacing size={80} />
       <FixedBottomButton label="등록하기" onClick={handleSubmit} />
     </div>
