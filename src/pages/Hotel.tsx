@@ -28,7 +28,7 @@ function Hotel() {
       <Rooms hotelId={id} />
       <Contents contents={contents} />
       <Map location={location} />
-      <RecommendHotels recommendHotels={recommendHotels} />
+      {/* <RecommendHotels recommendHotels={recommendHotels} /> */}
       <Review hotelId={id} />
     </div>
   );

@@ -13,6 +13,7 @@ import { PiImagesThin } from "react-icons/pi";
 import Grid from "../components/shared/Grid";
 import ImageUpload from "../components/register/ImageUpload";
 import ImageItem from "../components/register/ImageItem";
+import { registerHotel } from "../remote/register";
 
 function Register() {
   const navigate = useNavigate();
@@ -72,8 +73,8 @@ function Register() {
 
   const handleSubmit = async () => {
     console.log(newHotel);
-    //await registerHotel(newHotel);
-    //navigate(`/`);
+    await registerHotel(newHotel);
+    navigate(`/`);
   };
 
   const handleFileChange = (newImageUrl: string) => {
@@ -83,7 +84,7 @@ function Register() {
 
   const handleDeleteImage = (deleteImageUrl: string) => {
     const newImageList = newHotel.images.filter((value) => {
-      return value != deleteImageUrl;
+      return value !== deleteImageUrl;
     });
 
     setNewHotel({ ...newHotel, images: newImageList });

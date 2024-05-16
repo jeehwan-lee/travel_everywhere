@@ -4,10 +4,7 @@ import Flex from "../shared/Flex";
 import Text from "../shared/Text";
 
 function Map({ location }: { location: Hotel["location"] }) {
-  const {
-    directions,
-    pointGeolocation: { x, y },
-  } = location;
+  const { x, y } = location;
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -38,7 +35,6 @@ function Map({ location }: { location: Hotel["location"] }) {
       >
         <Marker position={{ lat: y, lng: x }} />
       </GoogleMap>
-      <Text typography="t6">{directions}</Text>
     </Flex>
   );
 }
