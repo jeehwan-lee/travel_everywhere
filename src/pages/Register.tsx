@@ -10,9 +10,9 @@ import Text from "../components/shared/Text";
 import { TextField } from "../components/shared/TextField";
 import { RegisterHotel } from "../models/register";
 import { PiImagesThin } from "react-icons/pi";
-import UploadImageItem from "../components/register/UploadImageItem";
 import Grid from "../components/shared/Grid";
 import ImageUpload from "../components/register/ImageUpload";
+import ImageItem from "../components/register/ImageItem";
 
 function Register() {
   const navigate = useNavigate();
@@ -81,6 +81,14 @@ function Register() {
     setNewHotel({ ...newHotel, images: newImageList });
   };
 
+  const handleDeleteImage = (deleteImageUrl: string) => {
+    const newImageList = newHotel.images.filter((value) => {
+      return value != deleteImageUrl;
+    });
+
+    setNewHotel({ ...newHotel, images: newImageList });
+  };
+
   return (
     <div style={{ padding: 24 }}>
       <Text typography="t4" bold={true}>
@@ -132,10 +140,13 @@ function Register() {
         <ImageUpload onChangeFile={handleFileChange} />
         <Spacing size={50} />
         <Grid>
-          <UploadImageItem />
-          <UploadImageItem />
-          <UploadImageItem />
-          <UploadImageItem />
+          {newHotel.images.map((url, index) => (
+            <ImageItem
+              key={index}
+              url={url}
+              onDeleteImage={handleDeleteImage}
+            />
+          ))}
         </Grid>
       </Flex>
       <Spacing size={80} />
