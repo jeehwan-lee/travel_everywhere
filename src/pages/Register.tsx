@@ -12,6 +12,7 @@ import { RegisterHotel } from "../models/register";
 import { PiImagesThin } from "react-icons/pi";
 import UploadImageItem from "../components/register/UploadImageItem";
 import Grid from "../components/shared/Grid";
+import ImageUpload from "../components/register/ImageUpload";
 
 function Register() {
   const navigate = useNavigate();
@@ -46,6 +47,7 @@ function Register() {
     price: 0,
     startRating: 5,
     location: { x: 0, y: 0 },
+    images: [],
   });
 
   useEffect(() => {
@@ -72,6 +74,11 @@ function Register() {
     console.log(newHotel);
     //await registerHotel(newHotel);
     //navigate(`/`);
+  };
+
+  const handleFileChange = (newImageUrl: string) => {
+    const newImageList = [...newHotel.images, newImageUrl];
+    setNewHotel({ ...newHotel, images: newImageList });
   };
 
   return (
@@ -122,21 +129,7 @@ function Register() {
       <Map location={newHotel.location} setNewLocation={handleLocation} />
       <Spacing size={20} />
       <Flex justify="center" align="center" direction="column">
-        <Flex
-          direction="column"
-          align="center"
-          style={{
-            border: "dashed 2px black",
-            borderRadius: "10px",
-            width: "100%",
-            height: "500px",
-          }}
-        >
-          <PiImagesThin style={{ width: "100%", height: "100%" }} />
-          <Text typography="t4" bold={true}>
-            UPLOAD
-          </Text>
-        </Flex>
+        <ImageUpload onChangeFile={handleFileChange} />
         <Spacing size={50} />
         <Grid>
           <UploadImageItem />

@@ -2,7 +2,7 @@ export interface RegisterHotel {
   comment: string;
   contents: string;
   id?: string;
-  images?: string[];
+  images: string[];
   location: { x: number; y: number };
   mainImageUrl?: string;
   name: string;
