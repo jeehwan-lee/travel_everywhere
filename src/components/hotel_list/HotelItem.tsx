@@ -111,7 +111,11 @@ function HotelItem({
           />
           {/* {tagComponent()} */}
           <Spacing size={8} />
-          <ListRow.Texts title={hotel.name} subTitle={hotel.comment} />
+          <Flex direction="column">
+            <Text bold={true}>{hotel.name}</Text>
+            <Spacing size={4} />
+            <Text typography="t7">{hotel.comment}</Text>
+          </Flex>
           <Spacing size={8} />
           <Flex direction="row" justify="space-between">
             <Text typography="t7" color="gray600">
@@ -131,7 +135,7 @@ const containerStyles = css`
 
 const iconHeartStyles = css`
   position: absolute;
-  top: 336px;
+  top: 540px;
   right: 24px;
   width: 30px;
   height: 30px;

@@ -23,7 +23,7 @@ function Map({ location }: { location: Hotel["location"] }) {
       <GoogleMap
         mapContainerStyle={{
           width: "100%",
-          height: "250px",
+          height: "400px",
           margin: "16px 0",
           boxSizing: "border-box",
         }}
@@ -31,7 +31,7 @@ function Map({ location }: { location: Hotel["location"] }) {
           lat: y,
           lng: x,
         }}
-        zoom={10}
+        zoom={15}
       >
         <Marker position={{ lat: y, lng: x }} />
       </GoogleMap>

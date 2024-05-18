@@ -2,6 +2,7 @@
 
 import { css } from "@emotion/react";
 import Flex from "./Flex";
+import { Spacing } from "./Spacing";
 import Text from "./Text";
 
 interface TopProps {
@@ -15,6 +16,7 @@ function Top({ title, subTitle }: TopProps) {
       <Text bold={true} typography="t4">
         {title}
       </Text>
+      <Spacing size={4} />
       <Text typography="t7">{subTitle}</Text>
     </Flex>
   );

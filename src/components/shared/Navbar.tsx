@@ -26,7 +26,7 @@ function Navbar() {
               등록하기
             </Button>
             <Spacing size={8} direction="horizontal" />
-            <Link to="/my">
+            <Link to="/settings">
               <img
                 src={
                   user.photoURL ??
@@ -39,14 +39,6 @@ function Navbar() {
               />
             </Link>
             <Spacing size={8} direction="horizontal" />
-            <Link to="/settings">
-              <img
-                src="https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/setting-64.png"
-                alt=""
-                width={50}
-                height={50}
-              />
-            </Link>
           </Flex>
         </>
       );

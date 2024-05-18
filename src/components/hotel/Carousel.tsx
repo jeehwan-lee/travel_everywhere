@@ -25,7 +25,7 @@ function Carousel({ images }: { images: string[] }) {
 
 const containerStyles = css`
   padding: 0 24px;
-  height: 300px;
+  height: 500px;
 `;
 
 const imageStyles = css`

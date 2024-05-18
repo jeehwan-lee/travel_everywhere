@@ -13,7 +13,10 @@ function HotelList() {
   const { data: likes, mutate: like } = useLike();
   return (
     <div>
-      <Top title="인기호텔" subTitle="호텔부터 펜션까지 최저가" />
+      <Top
+        title="Travel EveryWhere"
+        subTitle="몇 번의 클릭만으로 완벽한 여행을 계획하세요"
+      />
       <Spacing size={10} backgroundColor="gray100" />
 
       <InfiniteScroll

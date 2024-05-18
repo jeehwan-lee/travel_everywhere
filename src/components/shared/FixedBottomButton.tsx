@@ -47,6 +47,8 @@ const slideup = keyframes`
 
 const Container = styled.div`
   position: fixed;
+  width: 760px;
+  margin: 0 auto;
   left: 0;
   right: 0;
   bottom: 0;
