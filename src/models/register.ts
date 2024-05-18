@@ -18,3 +18,17 @@ export interface RegisterHotel {
   };
   recommendHotels?: string[];
 }
+
+export interface RegisterRoom {
+  avaliableCount: number;
+  basicInfo: {
+    bed: string;
+    maxOccupancy: number;
+    smoke: string;
+    squareMeters: string;
+  };
+  imageUrl: string;
+  price: number;
+  refundable: boolean;
+  roomName: string;
+}
