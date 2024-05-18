@@ -1,6 +1,6 @@
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 import { useState } from "react";
-import { RegisterHotel } from "../../models/register";
+import { HotelRegister } from "../../models/register";
 import Flex from "../shared/Flex";
 import Text from "../shared/Text";
 
@@ -8,7 +8,7 @@ function Map({
   location,
   setNewLocation,
 }: {
-  location: RegisterHotel["location"];
+  location: HotelRegister["location"];
   setNewLocation: (e: any) => void;
 }) {
   const { isLoaded } = useJsApiLoader({

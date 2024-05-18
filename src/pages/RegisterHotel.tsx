@@ -8,14 +8,14 @@ import Select from "../components/shared/Select";
 import { Spacing } from "../components/shared/Spacing";
 import Text from "../components/shared/Text";
 import { TextField } from "../components/shared/TextField";
-import { RegisterHotel, RegisterRoom } from "../models/register";
+import { HotelRegister, RoomRegister } from "../models/register";
 import { PiImagesThin } from "react-icons/pi";
 import Grid from "../components/shared/Grid";
 import ImageUpload from "../components/register/ImageUpload";
 import ImageItem from "../components/register/ImageItem";
 import { registerHotel } from "../remote/register";
 
-function Register() {
+function RegisterHotel() {
   const navigate = useNavigate();
 
   const startRatingList = [
@@ -41,18 +41,7 @@ function Register() {
     },
   ];
 
-  const refundableList = [
-    {
-      label: "가능",
-      value: "가능",
-    },
-    {
-      label: "불가능",
-      value: "불가능",
-    },
-  ];
-
-  const [newHotel, setNewHotel] = useState<RegisterHotel>({
+  const [newHotel, setNewHotel] = useState<HotelRegister>({
     comment: "",
     contents: "",
     name: "",
@@ -61,8 +50,6 @@ function Register() {
     location: { x: 0, y: 0 },
     images: [],
   });
-
-  const [rooms, setRooms] = useState<RegisterRoom[]>([]);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -150,52 +137,10 @@ function Register() {
       <Spacing size={8} />
       <Map location={newHotel.location} setNewLocation={handleLocation} />
       <Spacing size={20} />
-      <Flex justify="center" align="center" direction="column">
-        <ImageUpload onChangeFile={handleFileChange} />
-        <Spacing size={50} />
-        <Grid>
-          {newHotel.images.map((url, index) => (
-            <ImageItem
-              key={index}
-              url={url}
-              onDeleteImage={handleDeleteImage}
-            />
-          ))}
-        </Grid>
-      </Flex>
       <Text typography="t4" bold={true}>
-        객실정보
+        호텔사진
       </Text>
-      <Spacing size={16} />
-      <TextField
-        label="객실명"
-        name="roomName"
-        value={newHotel.name}
-        onChange={handleChange}
-      />
       <Spacing size={8} />
-      <TextField
-        label="가격"
-        name="price"
-        value={newHotel.name}
-        onChange={handleChange}
-      />
-      <Spacing size={8} />
-      <TextField
-        label="객실수"
-        name="avaliableCount"
-        value={newHotel.name}
-        onChange={handleChange}
-      />
-      <Spacing size={8} />
-      <Select
-        label="환불가능"
-        options={refundableList}
-        name="refundable"
-        value={newHotel.startRating}
-        onChange={handleChange}
-      />
-      <Spacing size={20} />
       <Flex justify="center" align="center" direction="column">
         <ImageUpload onChangeFile={handleFileChange} />
         <Spacing size={50} />
@@ -215,4 +160,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default RegisterHotel;

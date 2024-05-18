@@ -14,6 +14,7 @@ function HotelList() {
   return (
     <div>
       <Top title="인기호텔" subTitle="호텔부터 펜션까지 최저가" />
+      <Spacing size={10} backgroundColor="gray100" />
 
       <InfiniteScroll
         dataLength={hotels?.length ?? 0}

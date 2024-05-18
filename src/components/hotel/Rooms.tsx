@@ -70,9 +70,7 @@ function Rooms({ hotelId }: { hotelId: string }) {
                         ) : null}
                       </Flex>
                     }
-                    subTitle={`${addDelimiter(room.price)}원 / `.concat(
-                      room.refundable ? "환불가능" : "환불불가"
-                    )}
+                    subTitle={`${addDelimiter(room.price)}원`}
                   ></ListRow.Texts>
                 }
                 right={

@@ -22,7 +22,12 @@ function Navbar() {
       return (
         <>
           <Flex justify="center" align="center">
-            <Button onClick={() => navigate("/register")}>등록하기</Button>
+            <Button onClick={() => navigate("/register/Room")}>
+              객실 등록하기
+            </Button>
+            <Button onClick={() => navigate("/register/Hotel")}>
+              등록하기
+            </Button>
             <Spacing size={8} direction="horizontal" />
             <Link to="/my">
               <img

@@ -1,4 +1,4 @@
-export interface RegisterHotel {
+export interface HotelRegister {
   comment: string;
   contents: string;
   id?: string;
@@ -19,7 +19,7 @@ export interface RegisterHotel {
   recommendHotels?: string[];
 }
 
-export interface RegisterRoom {
+export interface RoomRegister {
   avaliableCount: number;
   basicInfo: {
     bed: string;
@@ -29,6 +29,5 @@ export interface RegisterRoom {
   };
   imageUrl: string;
   price: number;
-  refundable: boolean;
   roomName: string;
 }

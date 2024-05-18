@@ -7,7 +7,9 @@ import useLoadKaKao from "./hooks/useLoadKaKao";
 import Hotel from "./pages/Hotel";
 import HotelList from "./pages/HotelList";
 import Profile from "./pages/Profile";
-import Register from "./pages/Register";
+import RegisterHotel from "./pages/RegisterHotel";
+import Register from "./pages/RegisterHotel";
+import RegisterRoom from "./pages/RegisterRoom";
 import Reservation from "./pages/Reservation";
 import ReservationDone from "./pages/ReservationDone";
 import ReservationList from "./pages/ReservationList";
@@ -26,7 +28,8 @@ function App() {
         <Routes>
           <Route path="/" element={<HotelList />} />
           <Route path="/hotel/:id" element={<Hotel />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/register/Hotel" element={<RegisterHotel />} />
+          <Route path="/register/Room" element={<RegisterRoom />} />
           <Route path="/test" element={<Test />} />
           <Route path="/signin" element={<Signin />} />
           <Route
