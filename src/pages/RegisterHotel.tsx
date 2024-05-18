@@ -73,7 +73,7 @@ function RegisterHotel() {
 
   const handleSubmit = async () => {
     console.log(newHotel);
-    await registerHotel(newHotel);
+    const newHotelId = await registerHotel(newHotel);
     navigate(`/`);
   };
 

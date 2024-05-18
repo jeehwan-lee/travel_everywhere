@@ -1,4 +1,5 @@
 import {
+  addDoc,
   collection,
   doc,
   getDoc,
@@ -14,5 +15,5 @@ import { HotelRegister } from "../models/register";
 import { store } from "./firebase";
 
 export async function registerHotel(newRegister: HotelRegister) {
-  await setDoc(doc(collection(store, COLLECTIONS.HOTEL)), newRegister);
+  return await addDoc(collection(store, COLLECTIONS.HOTEL), newRegister);
 }
