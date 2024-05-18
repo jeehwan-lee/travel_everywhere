@@ -13,6 +13,7 @@ import { parseISO } from "date-fns/parseISO";
 import formatTime from "../../utils/formatTime";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Carousel from "../hotel/Carousel";
 
 function HotelItem({
   hotel,
@@ -28,6 +29,8 @@ function HotelItem({
   }) => void;
 }) {
   const [remainedTime, setRemainedTime] = useState(0);
+
+  console.log(hotel);
 
   useEffect(() => {
     if (hotel.events == null || hotel.events.promoEndTime == null) {
@@ -80,6 +83,7 @@ function HotelItem({
 
   const handleLike = (e: any) => {
     e.preventDefault();
+    e.stopPropagation();
     onLike({
       hotel: {
         name: hotel.name,
@@ -90,63 +94,45 @@ function HotelItem({
   };
 
   return (
-    <div>
+    <div style={{ position: "relative" }}>
       <Link to={`/hotel/${hotel.id}`}>
-        <ListRow
-          contents={
-            <Flex direction="column">
-              {tagComponent()}
-              <ListRow.Texts title={hotel.name} subTitle={hotel.comment} />
-              <Spacing size={4} />
-              <Text typography="t7" color="gray600">
-                {hotel.startRating}성급
-              </Text>
-            </Flex>
-          }
-          right={
-            <Flex
-              style={{ position: "relative" }}
-              direction="column"
-              align="flex-end"
-            >
-              <img
-                css={iconHeartStyles}
-                src={
-                  isLike
-                    ? "https://cdn4.iconfinder.com/data/icons/twitter-29/512/166_Heart_Love_Like_Twitter-512.png"
-                    : "https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-heart-outline-64.png"
-                }
-                alt=""
-                onClick={handleLike}
-              />
-              <img src={hotel.mainImageUrl} alt="" css={imageStyles} />
-              <Spacing size={8} />
-              <Text bold={true}>{addDelimiter(hotel.price)}원</Text>
-            </Flex>
-          }
-          style={containerStyles}
-        />
+        <Spacing size={20} />
+        <Carousel images={hotel.images} />
+        <Flex direction="column" css={containerStyles}>
+          <img
+            css={iconHeartStyles}
+            src={
+              isLike
+                ? "https://cdn4.iconfinder.com/data/icons/twitter-29/512/166_Heart_Love_Like_Twitter-512.png"
+                : "https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-heart-outline-64.png"
+            }
+            alt=""
+            onClick={handleLike}
+          />
+          {/* {tagComponent()} */}
+          <Spacing size={8} />
+          <ListRow.Texts title={hotel.name} subTitle={hotel.comment} />
+          <Spacing size={8} />
+          <Flex direction="row" justify="space-between">
+            <Text typography="t7" color="gray600">
+              {hotel.startRating}성급
+            </Text>
+            <Text bold={true}>{addDelimiter(hotel.price)}원</Text>
+          </Flex>
+        </Flex>
       </Link>
     </div>
   );
 }
 
-const imageStyles = css`
-  width: 90px;
-  height: 110px;
-  border-radius: 8px;
-  object-fit: cover;
-  margin-left: 16px;
-`;
-
 const containerStyles = css`
-  align-items: flex-start;
+  padding: 8px 24px;
 `;
 
 const iconHeartStyles = css`
   position: absolute;
-  top: 4px;
-  right: 4px;
+  top: 336px;
+  right: 24px;
   width: 30px;
   height: 30px;
 `;
