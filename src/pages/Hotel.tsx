@@ -8,6 +8,7 @@ import Map from "../components/hotel/Map";
 import RecommendHotels from "../components/hotel/RecommendHotels";
 import Review from "../components/hotel/Review";
 import Rooms from "../components/hotel/Rooms";
+import { Spacing } from "../components/shared/Spacing";
 import Top from "../components/shared/Top";
 
 function Hotel() {
@@ -25,9 +26,13 @@ function Hotel() {
       <Top title={name} subTitle={comment} />
       <Carousel images={images} />
       <ActionButtons hotel={data} />
+      <Spacing size={5} backgroundColor="gray100" />
       <Rooms hotelId={id} />
+      <Spacing size={5} backgroundColor="gray100" />
       <Contents contents={contents} />
+      <Spacing size={5} backgroundColor="gray100" />
       <Map location={location} />
+      <Spacing size={5} backgroundColor="gray100" />
       {/* <RecommendHotels recommendHotels={recommendHotels} /> */}
       <Review hotelId={id} />
     </div>
