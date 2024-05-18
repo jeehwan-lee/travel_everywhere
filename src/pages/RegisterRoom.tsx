@@ -13,10 +13,17 @@ import { PiImagesThin } from "react-icons/pi";
 import Grid from "../components/shared/Grid";
 import ImageUpload from "../components/register/ImageUpload";
 import ImageItem from "../components/register/ImageItem";
-import { registerHotel } from "../remote/register";
+import { registerHotel, registerRoom } from "../remote/register";
+import { parse } from "qs";
 
 function RegisterRoom() {
   const navigate = useNavigate();
+
+  const { hotelId } = parse(window.location.search, {
+    ignoreQueryPrefix: true,
+  }) as {
+    hotelId: string;
+  };
 
   const smokeList = [
     {
@@ -56,9 +63,8 @@ function RegisterRoom() {
   };
 
   const handleSubmit = async () => {
-    console.log(rooms);
-    //await registerHotel(rooms);
-    //navigate(`/`);
+    await registerRoom(rooms, hotelId);
+    navigate(`/`);
   };
 
   const handleFileChange = (newImageUrl: string) => {

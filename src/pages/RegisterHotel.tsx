@@ -72,9 +72,8 @@ function RegisterHotel() {
   };
 
   const handleSubmit = async () => {
-    console.log(newHotel);
     const newHotelId = await registerHotel(newHotel);
-    navigate(`/`);
+    navigate(`/register/Room?hotelId=${newHotelId}`);
   };
 
   const handleFileChange = (newImageUrl: string) => {
