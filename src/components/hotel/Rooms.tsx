@@ -31,75 +31,81 @@ function Rooms({ hotelId }: { hotelId: string }) {
           1박, 세금포함
         </Text>
       </Flex>
-      <ul>
-        {data?.map((room) => {
-          const isDeadline = room.avaliableCount === 1;
-          const isSoldOut = room.avaliableCount === 0;
+      {data?.length !== 0 ? (
+        <ul>
+          {data?.map((room) => {
+            const isDeadline = room.avaliableCount === 1;
+            const isSoldOut = room.avaliableCount === 0;
 
-          const params = qs.stringify(
-            {
-              roomId: room.id,
-              hotelId,
-            },
-            {
-              addQueryPrefix: true,
-            }
-          );
-
-          return (
-            <ListRow
-              key={room.id}
-              left={
-                <img
-                  css={imageStyles}
-                  src={room.imageUrl}
-                  alt={`${room.roomName} 이미지`}
-                />
+            const params = qs.stringify(
+              {
+                roomId: room.id,
+                hotelId,
+              },
+              {
+                addQueryPrefix: true,
               }
-              contents={
-                <ListRow.Texts
-                  title={
-                    <Flex>
-                      <Text>{room.roomName}</Text>
-                      {isDeadline === true ? (
-                        <>
-                          <Spacing size={6} direction="horizontal" />
-                          <Tag backgroundColor="red">마감임박</Tag>
-                        </>
-                      ) : null}
-                    </Flex>
-                  }
-                  subTitle={`${addDelimiter(room.price)}원 / `.concat(
-                    room.refundable ? "환불가능" : "환불불가"
-                  )}
-                ></ListRow.Texts>
-              }
-              right={
-                <Button
-                  size="medium"
-                  disabled={isSoldOut}
-                  onClick={() => {
-                    if (user === null) {
-                      open({
-                        title: "로그인이 필요한 기능입니다",
-                        onButtonClick: () => {
-                          navigate("/signin");
-                        },
-                      });
+            );
 
-                      return;
+            return (
+              <ListRow
+                key={room.id}
+                left={
+                  <img
+                    css={imageStyles}
+                    src={room.imageUrl}
+                    alt={`${room.roomName} 이미지`}
+                  />
+                }
+                contents={
+                  <ListRow.Texts
+                    title={
+                      <Flex>
+                        <Text>{room.roomName}</Text>
+                        {isDeadline === true ? (
+                          <>
+                            <Spacing size={6} direction="horizontal" />
+                            <Tag backgroundColor="red">마감임박</Tag>
+                          </>
+                        ) : null}
+                      </Flex>
                     }
+                    subTitle={`${addDelimiter(room.price)}원 / `.concat(
+                      room.refundable ? "환불가능" : "환불불가"
+                    )}
+                  ></ListRow.Texts>
+                }
+                right={
+                  <Button
+                    size="medium"
+                    disabled={isSoldOut}
+                    onClick={() => {
+                      if (user === null) {
+                        open({
+                          title: "로그인이 필요한 기능입니다",
+                          onButtonClick: () => {
+                            navigate("/signin");
+                          },
+                        });
 
-                    navigate(`/schedule${params}`);
-                  }}
-                >
-                  {isSoldOut === true ? "매진" : "선택"}
-                </Button>
-              }
-            ></ListRow>
-          );
-        })}
-      </ul>
+                        return;
+                      }
+
+                      navigate(`/schedule${params}`);
+                    }}
+                  >
+                    {isSoldOut === true ? "매진" : "선택"}
+                  </Button>
+                }
+              ></ListRow>
+            );
+          })}
+        </ul>
+      ) : (
+        <Text typography="t4" style={{ padding: "0 24px" }}>
+          등록된 객실이 없습니다.
+        </Text>
+      )}
     </Container>
   );
 }
