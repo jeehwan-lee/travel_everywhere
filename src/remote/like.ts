@@ -8,6 +8,7 @@ import {
   orderBy,
   query,
   setDoc,
+  updateDoc,
   where,
   writeBatch,
 } from "firebase/firestore";
@@ -38,7 +39,7 @@ export async function toggleLike({
   hotel,
   userId,
 }: {
-  hotel: Pick<Hotel, "name" | "id" | "mainImageUrl">;
+  hotel: Pick<Hotel, "name" | "id" | "likes">;
   userId: string;
 }) {
   const findSnapshot = await getDocs(
@@ -60,6 +61,10 @@ export async function toggleLike({
         where("order", ">", removeTargetOrder)
       )
     );
+
+    await updateDoc(doc(store, COLLECTIONS.HOTEL, hotel.id), {
+      likes: (hotel.likes as number) - 1,
+    });
 
     if (updateTargetSnapshot.empty) {
       return deleteDoc(removeTarget.ref);
@@ -84,6 +89,10 @@ export async function toggleLike({
       )
     );
 
+    await updateDoc(doc(store, COLLECTIONS.HOTEL, hotel.id), {
+      likes: (hotel.likes as number) + 1,
+    });
+
     const lastOrder = lastLikeSnapshot.empty
       ? 0
       : lastLikeSnapshot.docs[0].data().order;
@@ -92,7 +101,6 @@ export async function toggleLike({
       order: lastOrder + 1,
       hotelId: hotel.id,
       hotelName: hotel.name,
-      hotelMainImageUrl: hotel.mainImageUrl,
       userId,
     };
 

@@ -41,9 +41,7 @@ function Review({ hotelId }: { hotelId: string }) {
             height={30}
           />
           <Spacing size={15} />
-          <Text typography="t6">
-            아직 작성된 리뷰가 없습니다. 첫 리뷰를 작성해보세요.
-          </Text>
+          <Text typography="t6">아직 작성된 리뷰가 없습니다.</Text>
         </Flex>
       );
     }

@@ -8,11 +8,14 @@ import { colors } from "../../styles/colorPalette";
 import { useCallback } from "react";
 import useUser from "../../hooks/auth/userUser";
 import { Spacing } from "./Spacing";
+import useGoogleSignin from "../../hooks/useGoogleSignin";
 
 function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
   const user = useUser();
+
+  const { signout } = useGoogleSignin();
 
   const showSignButton =
     ["/signup", "/signin"].includes(location.pathname) == false;
@@ -24,6 +27,13 @@ function Navbar() {
           <Flex justify="center" align="center">
             <Button onClick={() => navigate("/register/Hotel")}>
               등록하기
+            </Button>
+            <Button
+              onClick={() => {
+                signout();
+              }}
+            >
+              로그아웃
             </Button>
             <Spacing size={8} direction="horizontal" />
             <Link to="/settings">

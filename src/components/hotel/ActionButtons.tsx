@@ -31,7 +31,6 @@ function ActionButtons({ hotel }: { hotel: Hotel }) {
             hotel: {
               name: name,
               id: id,
-              mainImageUrl: mainImageUrl,
             },
           })
         }

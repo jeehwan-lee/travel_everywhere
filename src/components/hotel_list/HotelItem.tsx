@@ -22,15 +22,9 @@ function HotelItem({
 }: {
   hotel: IHotel;
   isLike: boolean;
-  onLike: ({
-    hotel,
-  }: {
-    hotel: Pick<IHotel, "name" | "id" | "mainImageUrl">;
-  }) => void;
+  onLike: ({ hotel }: { hotel: Pick<IHotel, "name" | "id" | "likes"> }) => void;
 }) {
   const [remainedTime, setRemainedTime] = useState(0);
-
-  console.log(hotel);
 
   useEffect(() => {
     if (hotel.events == null || hotel.events.promoEndTime == null) {
@@ -87,7 +81,7 @@ function HotelItem({
     onLike({
       hotel: {
         name: hotel.name,
-        mainImageUrl: hotel.mainImageUrl,
+        likes: hotel.likes,
         id: hotel.id,
       },
     });
@@ -99,22 +93,28 @@ function HotelItem({
         <Spacing size={20} />
         <Carousel images={hotel.images} />
         <Flex direction="column" css={containerStyles}>
-          <img
-            css={iconHeartStyles}
-            src={
-              isLike
-                ? "https://cdn4.iconfinder.com/data/icons/twitter-29/512/166_Heart_Love_Like_Twitter-512.png"
-                : "https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-heart-outline-64.png"
-            }
-            alt=""
-            onClick={handleLike}
-          />
           {/* {tagComponent()} */}
           <Spacing size={8} />
-          <Flex direction="column">
-            <Text bold={true}>{hotel.name}</Text>
-            <Spacing size={4} />
-            <Text typography="t7">{hotel.comment}</Text>
+          <Flex justify="space-between">
+            <Flex direction="column">
+              <Text bold={true}>{hotel.name}</Text>
+              <Spacing size={4} />
+              <Text typography="t7">{hotel.comment}</Text>
+            </Flex>
+            <Flex>
+              <img
+                css={iconHeartStyles}
+                src={
+                  isLike
+                    ? "https://cdn4.iconfinder.com/data/icons/twitter-29/512/166_Heart_Love_Like_Twitter-512.png"
+                    : "https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-heart-outline-64.png"
+                }
+                alt=""
+                onClick={handleLike}
+              />
+              <Spacing size={5} direction="horizontal" />
+              {(hotel.likes as number) > 0 && <Text>{hotel.likes}</Text>}
+            </Flex>
           </Flex>
           <Spacing size={8} />
           <Flex direction="row" justify="space-between">
@@ -134,9 +134,6 @@ const containerStyles = css`
 `;
 
 const iconHeartStyles = css`
-  position: absolute;
-  top: 540px;
-  right: 24px;
   width: 30px;
   height: 30px;
 `;

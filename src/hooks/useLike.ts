@@ -20,7 +20,7 @@ function useLike() {
   );
 
   const { mutate } = useMutation(
-    ({ hotel }: { hotel: Pick<Hotel, "name" | "id" | "mainImageUrl"> }) => {
+    ({ hotel }: { hotel: Pick<Hotel, "name" | "id" | "likes"> }) => {
       if (user == null) {
         throw new Error("로그인 필요");
       }

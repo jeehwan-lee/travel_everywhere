@@ -5,7 +5,6 @@ import "swiper/css";
 import { css } from "@emotion/react";
 
 function Carousel({ images }: { images: string[] }) {
-  console.log(images);
   return (
     <div>
       <Swiper css={containerStyles} spaceBetween={8}>

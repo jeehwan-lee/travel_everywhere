@@ -51,7 +51,7 @@ function useGoogleSignin() {
     signOut(auth);
   }, []);
 
-  return { signin, signOut };
+  return { signin, signout };
 }
 
 export default useGoogleSignin;
