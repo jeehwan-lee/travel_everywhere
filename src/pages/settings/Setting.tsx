@@ -28,6 +28,20 @@ function SettingPage() {
             />
           </Link>
         </li>
+        <li>
+          <Link to="/register/list">
+            <ListRow
+              as="div"
+              contents={
+                <ListRow.Texts
+                  title="등록내역"
+                  subTitle="호텔 등록내역 확인하기"
+                />
+              }
+              withArrow={true}
+            />
+          </Link>
+        </li>
       </ul>
     </div>
   );

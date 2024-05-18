@@ -9,6 +9,8 @@ import HotelList from "./pages/HotelList";
 import Profile from "./pages/Profile";
 import RegisterHotel from "./pages/RegisterHotel";
 import Register from "./pages/RegisterHotel";
+import RegisterHotelList from "./pages/RegisterHotelList";
+import RegisterList from "./pages/RegisterHotelList";
 import RegisterRoom from "./pages/RegisterRoom";
 import Reservation from "./pages/Reservation";
 import ReservationDone from "./pages/ReservationDone";
@@ -94,6 +96,14 @@ function App() {
               element={
                 <PrivateRoute>
                   <ReservationList />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/register/list"
+              element={
+                <PrivateRoute>
+                  <RegisterHotelList />
                 </PrivateRoute>
               }
             />

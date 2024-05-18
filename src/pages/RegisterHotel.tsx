@@ -14,9 +14,11 @@ import Grid from "../components/shared/Grid";
 import ImageUpload from "../components/register/ImageUpload";
 import ImageItem from "../components/register/ImageItem";
 import { registerHotel } from "../remote/register";
+import useUser from "../hooks/auth/userUser";
 
 function RegisterHotel() {
   const navigate = useNavigate();
+  const user = useUser();
 
   const startRatingList = [
     {
@@ -49,6 +51,8 @@ function RegisterHotel() {
     startRating: 5,
     location: { x: 0, y: 0 },
     images: [],
+    userId: user?.uid,
+    likes: 0,
   });
 
   useEffect(() => {

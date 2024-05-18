@@ -1,4 +1,5 @@
 export interface HotelRegister {
+  userId?: string;
   comment: string;
   contents: string;
   id?: string;
@@ -7,6 +8,7 @@ export interface HotelRegister {
   mainImageUrl?: string;
   name: string;
   price: number;
+  likes: number;
   startRating: number;
   events?: {
     name: string;
