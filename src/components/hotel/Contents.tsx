@@ -2,10 +2,14 @@ import styled from "@emotion/styled";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import { typographyMap } from "../../styles/typography";
+import Text from "../shared/Text";
 
 function Contents({ contents }: { contents: string }) {
   return (
     <ContainerStyles>
+      <Text bold={true} typography="t4">
+        호텔소개
+      </Text>
       <ReactMarkdown rehypePlugins={[rehypeRaw]}>{contents}</ReactMarkdown>
     </ContainerStyles>
   );

@@ -100,9 +100,16 @@ function Rooms({ hotelId }: { hotelId: string }) {
           })}
         </ul>
       ) : (
-        <Text typography="t4" style={{ padding: "0 24px" }}>
-          등록된 객실이 없습니다.
-        </Text>
+        <Flex direction="column" align="center" justify="center">
+          <img
+            src="https://cdn2.iconfinder.com/data/icons/essential-web-5/50/note-short-reminder-memo-brief-512.png"
+            alt=""
+            width={30}
+            height={30}
+          />
+          <Spacing size={15} />
+          <Text typography="t6">등록된 객실이 없습니다.</Text>
+        </Flex>
       )}
     </Container>
   );

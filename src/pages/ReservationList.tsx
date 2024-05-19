@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import useReservationList from "../components/reservation/hooks/useReservationList";
 import ListRow from "../components/shared/ListRow";
 
@@ -12,23 +13,25 @@ function ReservationList() {
   return (
     <div>
       {data.map(({ hotel, reservation }) => (
-        <ListRow
-          key={reservation.id}
-          left={
-            <img
-              src={hotel.mainImageUrl}
-              alt={`${hotel.name} 이미지`}
-              width={80}
-              height={80}
-            />
-          }
-          contents={
-            <ListRow.Texts
-              title={hotel.name}
-              subTitle={`${reservation.startDate} ~ ${reservation.endDate}`}
-            />
-          }
-        />
+        <Link to={`/hotel/${hotel.id}`}>
+          <ListRow
+            key={reservation.id}
+            left={
+              <img
+                src={hotel.images[0]}
+                alt={`${hotel.name} 이미지`}
+                width={80}
+                height={80}
+              />
+            }
+            contents={
+              <ListRow.Texts
+                title={hotel.name}
+                subTitle={`${reservation.startDate} ~ ${reservation.endDate}`}
+              />
+            }
+          />
+        </Link>
       ))}
     </div>
   );

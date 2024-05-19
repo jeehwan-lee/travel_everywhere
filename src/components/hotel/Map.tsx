@@ -18,7 +18,7 @@ function Map({ location }: { location: Hotel["location"] }) {
   return (
     <Flex direction="column" style={{ padding: "24px" }}>
       <Text typography="t4" bold={true}>
-        기본정보
+        위치
       </Text>
       <GoogleMap
         mapContainerStyle={{
