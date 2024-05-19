@@ -1,3 +1,11 @@
+interface formValuesProps {
+  name: string;
+  phone: string;
+  email: string;
+  isSmoke: string;
+  special_request?: string;
+}
+
 export interface Reservation {
   userId: string;
   hotelId: string;
@@ -5,7 +13,5 @@ export interface Reservation {
   startDate: string;
   endDate: string;
   price: number;
-  formValues: {
-    [key: string]: string;
-  };
+  formValues: formValuesProps;
 }
