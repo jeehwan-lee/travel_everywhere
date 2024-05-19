@@ -22,6 +22,7 @@ import Signin from "./pages/Signin";
 import Test from "./pages/Test";
 
 function App() {
+  console.log(process.env.REACT_APP_TEST);
   useLoadKaKao();
   return (
     <div
