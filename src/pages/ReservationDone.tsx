@@ -1,16 +1,37 @@
 import qs from "qs";
+import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/shared/Button";
 import Flex from "../components/shared/Flex";
 import { Spacing } from "../components/shared/Spacing";
 import Text from "../components/shared/Text";
+import { getHotelWithRoom } from "../remote/hotel";
+import { getReservation } from "../remote/reservation";
+import { useState } from "react";
 
 function ReservationDone() {
-  const { hotelName } = qs.parse(window.location.search, {
+  const { reservationId } = qs.parse(window.location.search, {
     ignoreQueryPrefix: true,
   }) as {
-    hotelName: string;
+    reservationId: string;
   };
+
+  const [hotelAndRoom, setHotelAndRoom] = useState<any>(null);
+
+  const { data, isLoading } = useQuery(
+    ["reservationDone", reservationId],
+    () => getReservation(reservationId),
+    {
+      onSuccess: async (reservation) => {
+        const hotelWithRoom = await getHotelWithRoom({
+          hotelId: reservation.hotelId,
+          roomId: reservation.roomId,
+        });
+
+        setHotelAndRoom(hotelWithRoom);
+      },
+    }
+  );
 
   const navigate = useNavigate();
 
@@ -25,7 +46,10 @@ function ReservationDone() {
           height={120}
         />
         <Spacing size={30} />
-        <Text>{hotelName}</Text>
+        <Text>{data?.formValues.name}</Text>
+        <Text>{data?.formValues.email}</Text>
+        <Text>{data?.formValues.phone}</Text>
+        <Text>{data?.formValues.special_request}</Text>
         <Spacing size={8} />
         <Text>예약이 완료되었습니다.</Text>
       </Flex>

@@ -80,9 +80,9 @@ function Reservation() {
       formValues,
     };
 
-    await makeReservation(newReservation);
+    const reservationId = await makeReservation(newReservation);
 
-    navigate(`/reservation/done?hotelName=${hotel.name}`);
+    navigate(`/reservation/done?reservationId=${reservationId}`);
   };
 
   const buttonLabel = `${nights}박 ${addDelimiter(

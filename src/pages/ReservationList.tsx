@@ -13,7 +13,7 @@ function ReservationList() {
   return (
     <div>
       {data.map(({ hotel, reservation }) => (
-        <Link to={`/hotel/${hotel.id}`}>
+        <Link to={`/reservation/done?reservationId=${reservation.id}`}>
           <ListRow
             key={reservation.id}
             left={

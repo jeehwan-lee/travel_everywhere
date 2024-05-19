@@ -1,4 +1,5 @@
 import {
+  addDoc,
   collection,
   doc,
   getDoc,
@@ -31,7 +32,12 @@ export async function makeReservation(newReservation: Reservation) {
     avaliableCount: availableRoomCount - 1,
   });
 
-  await setDoc(doc(collection(store, COLLECTIONS.RESERVATION)), newReservation);
+  const reservationSnapShot = await addDoc(
+    collection(store, COLLECTIONS.RESERVATION),
+    newReservation
+  );
+
+  return reservationSnapShot.id;
 }
 
 export async function getReservations({ userId }: { userId: string }) {
@@ -59,4 +65,12 @@ export async function getReservations({ userId }: { userId: string }) {
   }
 
   return result;
+}
+
+export async function getReservation(id: string) {
+  const snapshot = await getDoc(doc(store, COLLECTIONS.RESERVATION, id));
+
+  return {
+    ...snapshot.data(),
+  } as Reservation;
 }
