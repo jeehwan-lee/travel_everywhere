@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+
 import qs from "qs";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +10,7 @@ import Text from "../components/shared/Text";
 import { getHotelWithRoom } from "../remote/hotel";
 import { getReservation } from "../remote/reservation";
 import { useState } from "react";
+import { css } from "@emotion/react";
 
 function ReservationDone() {
   const { reservationId } = qs.parse(window.location.search, {
@@ -16,7 +19,7 @@ function ReservationDone() {
     reservationId: string;
   };
 
-  const [hotelAndRoom, setHotelAndRoom] = useState<any>(null);
+  const [fetchedHotelRoom, setFetchedHotelRoom] = useState<any>(null);
 
   const { data, isLoading } = useQuery(
     ["reservationDone", reservationId],
@@ -27,8 +30,7 @@ function ReservationDone() {
           hotelId: reservation.hotelId,
           roomId: reservation.roomId,
         });
-
-        setHotelAndRoom(hotelWithRoom);
+        setFetchedHotelRoom(hotelWithRoom);
       },
     }
   );
@@ -40,12 +42,18 @@ function ReservationDone() {
       <Spacing size={80} />
       <Flex direction="column" align="center">
         <img
-          src="https://cdn2.iconfinder.com/data/icons/scenarium-vol-3-1/128/049_airplane_transport_clouds_fly_flight-128.png"
+          css={imageStyles}
+          src={fetchedHotelRoom?.room?.imageUrl}
           alt=""
-          width={120}
-          height={120}
+          width="50%"
+          height="50%"
         />
         <Spacing size={30} />
+        <Text typography="t2" bold>
+          {fetchedHotelRoom?.hotel.name}
+        </Text>
+
+        <Text>{fetchedHotelRoom?.room.roomName}</Text>
         <Text>{data?.formValues.name}</Text>
         <Text>{data?.formValues.email}</Text>
         <Text>{data?.formValues.phone}</Text>
@@ -65,5 +73,12 @@ function ReservationDone() {
     </div>
   );
 }
+
+const imageStyles = css`
+  width: 60%;
+  height: 60%;
+  object-fit: cover;
+  border-radius: 4px;
+`;
 
 export default ReservationDone;
