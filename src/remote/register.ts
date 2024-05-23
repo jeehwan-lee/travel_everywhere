@@ -4,8 +4,11 @@ import {
   doc,
   getDoc,
   getDocs,
+  limit,
   query,
+  QuerySnapshot,
   setDoc,
+  startAfter,
   updateDoc,
   where,
 } from "firebase/firestore";
@@ -27,4 +30,22 @@ export async function registerRoom(newRegister: RoomRegister, hotelId: string) {
   const roomRef = await doc(collection(hotel, COLLECTIONS.ROOM));
 
   return setDoc(roomRef, newRegister);
+}
+
+export async function getRegisterHotelList(userId?: string) {
+  const hotelsQuery = await query(
+    collection(store, COLLECTIONS.HOTEL),
+    where("userId", "==", userId)
+  );
+
+  const hotelsSnapshot = await getDocs(hotelsQuery);
+
+  const items = hotelsSnapshot.docs.map(
+    (doc) =>
+      ({
+        id: doc.id,
+        ...doc.data(),
+      } as Hotel)
+  );
+  return { items };
 }
