@@ -20,9 +20,9 @@ import LikePage from "./pages/settings/Like";
 import SettingPage from "./pages/settings/Setting";
 import Signin from "./pages/Signin";
 import Test from "./pages/Test";
+import Login from "./pages/Login";
 
 function App() {
-  console.log(process.env.REACT_APP_TEST);
   useLoadKaKao();
   return (
     <div
@@ -38,6 +38,7 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/" element={<HotelList />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/hotel/:id" element={<Hotel />} />
             <Route path="/register/Hotel" element={<RegisterHotel />} />
             <Route path="/register/Room" element={<RegisterRoom />} />
