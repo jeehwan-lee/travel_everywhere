@@ -18,7 +18,6 @@ import ReservationList from "./pages/ReservationList";
 import Schedule from "./pages/Schedule";
 import LikePage from "./pages/settings/Like";
 import SettingPage from "./pages/settings/Setting";
-import Signin from "./pages/Signin";
 import Test from "./pages/Test";
 import Login from "./pages/Login";
 
