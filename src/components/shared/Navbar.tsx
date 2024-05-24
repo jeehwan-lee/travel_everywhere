@@ -9,13 +9,16 @@ import { useCallback } from "react";
 import useUser from "../../hooks/auth/userUser";
 import { Spacing } from "./Spacing";
 import useGoogleSignin from "../../hooks/useGoogleSignin";
+import { signOut } from "firebase/auth";
+import { auth } from "../../remote/firebase";
+import Text from "./Text";
 
 function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
   const user = useUser();
 
-  const { signout } = useGoogleSignin();
+  console.log(user);
 
   const showSignButton =
     ["/signup", "/signin"].includes(location.pathname) == false;
@@ -30,12 +33,13 @@ function Navbar() {
             </Button>
             <Button
               onClick={() => {
-                signout();
+                signOut(auth);
               }}
             >
               로그아웃
             </Button>
             <Spacing size={8} direction="horizontal" />
+            <Text>{user.displayName}</Text>
             <Link to="/settings">
               <img
                 src={
@@ -57,7 +61,7 @@ function Navbar() {
     if (showSignButton) {
       return (
         <Link to="/signin">
-          <Button>로그인/회원가입</Button>
+          <Button>로그인</Button>
         </Link>
       );
     }
