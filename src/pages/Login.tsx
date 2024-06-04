@@ -7,8 +7,13 @@ import Button from "../components/shared/Button";
 import { LoginInfo } from "../models/login";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../remote/firebase";
+import { getUserInfo } from "../remote/user";
+import { useSetRecoilState } from "recoil";
+import { userAtom } from "../store/atom/user";
 
 function Login() {
+  const setUser = useSetRecoilState(userAtom);
+
   const [loginInfo, setLoginInfo] = useState<LoginInfo>({
     id: "",
     password: "",
@@ -25,6 +30,15 @@ function Login() {
         loginInfo.id,
         loginInfo.password
       );
+
+      const userInfo = await getUserInfo(loginUser.user.uid);
+
+      setUser({
+        uid: userInfo.uid,
+        email: userInfo?.email ?? "",
+        displayName: userInfo?.displayName ?? "",
+        photoURL: userInfo.photoURL ?? "",
+      });
     } catch (error) {
       console.log(error);
     }

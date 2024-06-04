@@ -13,15 +13,6 @@ function AuthGuard({ children }: { children: React.ReactNode }) {
   onAuthStateChanged(auth, async (user) => {
     if (user == null) {
       setUser(null);
-    } else {
-      const userInfo = await getUserInfo(user.uid);
-
-      setUser({
-        uid: userInfo.uid,
-        email: userInfo?.email ?? "",
-        displayName: userInfo?.displayName ?? "",
-        photoURL: userInfo.photoURL ?? "",
-      });
     }
 
     setInitialize(true);

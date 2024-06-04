@@ -20,6 +20,7 @@ import LikePage from "./pages/settings/Like";
 import SettingPage from "./pages/settings/Setting";
 import Test from "./pages/Test";
 import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 
 function App() {
   useLoadKaKao();
@@ -42,6 +43,7 @@ function App() {
             <Route path="/register/Room" element={<RegisterRoom />} />
             <Route path="/test" element={<Test />} />
             <Route path="/signin" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
             <Route
               path="/profile"
               element={
