@@ -81,7 +81,7 @@ function SignUp() {
           name="password"
           value={signUpInfo.password}
           onChange={onChange}
-          placeholder="비밀번호 재입력"
+          placeholder="비밀번호를 재입력하세요"
           type="password"
         />
         <Spacing size={20} />
@@ -97,7 +97,8 @@ function SignUp() {
           가입하기
         </Button>
         <Spacing size={20} />
-        <Flex justify="flex-end" css={textStyles}>
+        <Flex justify="space-between" css={textStyles}>
+          <Text color="gray500">기존에 계정이 있으신가요?</Text>
           <Link to="/signin">
             <Text color="gray900">로그인</Text>
           </Link>

@@ -69,14 +69,14 @@ function Login() {
           name="id"
           value={loginInfo.id}
           onChange={onChange}
-          placeholder="Email"
+          placeholder="이메일"
         />
         <Spacing size={20} />
         <Input2
           name="password"
           value={loginInfo.password}
           onChange={onChange}
-          placeholder="Password"
+          placeholder="비밀번호"
           type="password"
         />
         <Spacing size={20} />
@@ -85,7 +85,7 @@ function Login() {
         </Button>
         <Spacing size={20} />
         <Flex justify="space-between" css={textStyles}>
-          <Text color="gray500">비밀번호 찾기</Text>
+          <Text color="gray500">아직 계정이 없으신가요?</Text>
           <Link to="/signUp">
             <Text color="gray900">회원가입</Text>
           </Link>
