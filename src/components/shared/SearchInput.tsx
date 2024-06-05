@@ -49,7 +49,6 @@ export const Input = styled.input`
 
   &:focus {
     background-color: ${colors.white};
-    border: 1px solid ${colors.gray100};
-    box-shadow: 0 1px 1px ${colors.gray300};
+    border: 2px solid ${colors.gray300};
   }
 `;

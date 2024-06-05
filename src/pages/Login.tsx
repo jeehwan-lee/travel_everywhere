@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+
 import React, { useState } from "react";
 import Flex from "../components/shared/Flex";
 import { TextField } from "../components/shared/TextField";
@@ -10,9 +12,15 @@ import { auth } from "../remote/firebase";
 import { getUserInfo } from "../remote/user";
 import { useSetRecoilState } from "recoil";
 import { userAtom } from "../store/atom/user";
+import { Input2 } from "../components/shared/Input2";
+import { css } from "@emotion/react";
+import { colors } from "../styles/colorPalette";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
   const setUser = useSetRecoilState(userAtom);
+
+  const navigate = useNavigate();
 
   const [loginInfo, setLoginInfo] = useState<LoginInfo>({
     id: "",
@@ -39,30 +47,69 @@ function Login() {
         displayName: userInfo?.displayName ?? "",
         photoURL: userInfo.photoURL ?? "",
       });
+
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <div style={{ padding: 24 }}>
-      <Text bold={true}>로그인</Text>
-      <Spacing size={16} />
-      <TextField
-        label="아이디"
-        name="id"
-        value={loginInfo.id}
-        onChange={onChange}
-      />
-      <TextField
-        label="비밀번호"
-        name="password"
-        value={loginInfo.password}
-        onChange={onChange}
-      />
-      <Button onClick={() => onSubmit()}>로그인</Button>
-    </div>
+    <>
+      <Spacing size={120} />
+      <Flex direction="column" align="center" css={containerStyles}>
+        <Spacing size={40} />
+        <Flex justify="space-between" align="center" css={textStyles}>
+          <Text bold={true} typography="t1" color="gray900">
+            로그인
+          </Text>
+        </Flex>
+        <Spacing size={20} />
+        <Input2
+          name="id"
+          value={loginInfo.id}
+          onChange={onChange}
+          placeholder="Email"
+        />
+        <Spacing size={20} />
+        <Input2
+          name="password"
+          value={loginInfo.password}
+          onChange={onChange}
+          placeholder="Password"
+          type="password"
+        />
+        <Spacing size={20} />
+        <Button css={buttonStyles} onClick={() => onSubmit()}>
+          로그인
+        </Button>
+        <Spacing size={20} />
+        <Flex justify="space-between" css={textStyles}>
+          <Text color="gray500">비밀번호 찾기</Text>
+          <Link to="/signUp">
+            <Text color="gray900">회원가입</Text>
+          </Link>
+        </Flex>
+        <Spacing size={40} />
+      </Flex>
+    </>
   );
 }
+
+const containerStyles = css`
+  width: 600px;
+  margin: 0 auto;
+  border: 1px solid ${colors.gray200};
+  border-radius: 10px;
+`;
+
+const textStyles = css`
+  width: 400px;
+`;
+
+const buttonStyles = css`
+  width: 400px;
+  font-size: 18px;
+`;
 
 export default Login;

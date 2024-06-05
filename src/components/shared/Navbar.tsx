@@ -88,7 +88,7 @@ const headerStyles = css`
   padding: 20px 0px;
   background-color: ${colors.white};
   z-index: 10;
-  border-bottom: 1px solid ${colors.gray100};
+  border-bottom: 1px solid ${colors.gray200};
 `;
 
 const navbarStyles = css`
