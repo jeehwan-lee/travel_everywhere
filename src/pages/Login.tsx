@@ -56,7 +56,7 @@ function Login() {
 
   return (
     <>
-      <Spacing size={120} />
+      <Spacing size={100} />
       <Flex direction="column" align="center" css={containerStyles}>
         <Spacing size={40} />
         <Flex justify="space-between" align="center" css={textStyles}>
