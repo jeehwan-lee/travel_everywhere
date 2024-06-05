@@ -12,16 +12,14 @@ import useGoogleSignin from "../../hooks/useGoogleSignin";
 import { signOut } from "firebase/auth";
 import { auth } from "../../remote/firebase";
 import Text from "./Text";
+import { Input } from "./Input";
+import SearchInput from "./SearchInput";
+import { FaHome } from "react-icons/fa";
 
 function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
   const user = useUser();
-
-  console.log(user);
-
-  const showSignButton =
-    ["/signup", "/signin"].includes(location.pathname) == false;
 
   const renderButton = useCallback(() => {
     if (user != null) {
@@ -58,31 +56,49 @@ function Navbar() {
       );
     }
 
-    if (showSignButton) {
-      return (
-        <Link to="/signin">
-          <Button>로그인</Button>
-        </Link>
-      );
-    }
-
-    return null;
-  }, [user, showSignButton]);
+    return (
+      <Link to="/signin">
+        <Button css={buttonStyles}>로그인 및 회원가입</Button>
+      </Link>
+    );
+  }, [user]);
   return (
-    <Flex justify="space-between" align="center" css={navbarContainerStyles}>
-      <Link to="/">홈</Link>
-      {renderButton()}
-    </Flex>
+    <div css={headerStyles}>
+      <Flex direction="column" css={navbarStyles}>
+        <Flex justify="space-between" align="center">
+          <Flex justify="space-between" align="center">
+            <Link to="/">
+              <Flex align="center">
+                <Text bold={true} typography="t1">
+                  Travel
+                </Text>
+              </Flex>
+            </Link>
+            <Spacing size={20} direction="horizontal" />
+            <SearchInput placeholder="호텔을 검색해보세요" />
+          </Flex>
+          {renderButton()}
+        </Flex>
+      </Flex>
+    </div>
   );
 }
 
-const navbarContainerStyles = css`
-  padding: 10px 24px;
-  position: sticky;
-  top: 0;
+const headerStyles = css`
+  padding: 20px 0px;
   background-color: ${colors.white};
   z-index: 10;
-  border-bottom: 1px solid ${colors.gray};
+  border-bottom: 1px solid ${colors.gray100};
+`;
+
+const navbarStyles = css`
+  max-width: 1060px;
+  margin: 0 auto;
+`;
+
+const buttonStyles = css`
+  font-size: 14px;
+  padding: 10px 20px;
 `;
 
 export default Navbar;

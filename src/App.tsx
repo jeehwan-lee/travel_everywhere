@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AuthGuard from "./components/auth/AuthGuard";
@@ -21,99 +23,100 @@ import SettingPage from "./pages/settings/Setting";
 import Test from "./pages/Test";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import { css } from "@emotion/react";
 
 function App() {
   useLoadKaKao();
   return (
-    <div
-      style={{
-        width: "786px",
-        margin: "0 auto",
-        backgroundColor: "var(--white)",
-        boxShadow: "0 14px 28px var(--gray500)",
-      }}
-    >
+    <div>
       <BrowserRouter>
         <AuthGuard>
           <Navbar />
-          <Routes>
-            <Route path="/" element={<HotelList />} />
-            <Route path="/hotel/:id" element={<Hotel />} />
-            <Route path="/register/Hotel" element={<RegisterHotel />} />
-            <Route path="/register/Room" element={<RegisterRoom />} />
-            <Route path="/test" element={<Test />} />
-            <Route path="/signin" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route
-              path="/profile"
-              element={
-                <PrivateRoute>
-                  <Profile />
-                </PrivateRoute>
-              }
-            />
+          <div css={bodyStyles}>
+            <Routes>
+              <Route path="/" element={<HotelList />} />
+              <Route path="/hotel/:id" element={<Hotel />} />
+              <Route path="/register/Hotel" element={<RegisterHotel />} />
+              <Route path="/register/Room" element={<RegisterRoom />} />
+              <Route path="/test" element={<Test />} />
+              <Route path="/signin" element={<Login />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route
+                path="/profile"
+                element={
+                  <PrivateRoute>
+                    <Profile />
+                  </PrivateRoute>
+                }
+              />
 
-            <Route
-              path="/settings"
-              element={
-                <PrivateRoute>
-                  <SettingPage />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/settings/like"
-              element={
-                <PrivateRoute>
-                  <LikePage />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/schedule"
-              element={
-                <PrivateRoute>
-                  <Schedule />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/reservation"
-              element={
-                <PrivateRoute>
-                  <Reservation />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/reservation/done"
-              element={
-                <PrivateRoute>
-                  <ReservationDone />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/reservation/list"
-              element={
-                <PrivateRoute>
-                  <ReservationList />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/register/list"
-              element={
-                <PrivateRoute>
-                  <RegisterHotelList />
-                </PrivateRoute>
-              }
-            />
-          </Routes>
+              <Route
+                path="/settings"
+                element={
+                  <PrivateRoute>
+                    <SettingPage />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/settings/like"
+                element={
+                  <PrivateRoute>
+                    <LikePage />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/schedule"
+                element={
+                  <PrivateRoute>
+                    <Schedule />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/reservation"
+                element={
+                  <PrivateRoute>
+                    <Reservation />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/reservation/done"
+                element={
+                  <PrivateRoute>
+                    <ReservationDone />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/reservation/list"
+                element={
+                  <PrivateRoute>
+                    <ReservationList />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/register/list"
+                element={
+                  <PrivateRoute>
+                    <RegisterHotelList />
+                  </PrivateRoute>
+                }
+              />
+            </Routes>
+          </div>
         </AuthGuard>
       </BrowserRouter>
     </div>
   );
 }
+
+const bodyStyles = css`
+  max-width: 1060px;
+  margin: 0 auto;
+`;
 
 export default App;

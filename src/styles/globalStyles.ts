@@ -9,7 +9,6 @@ export default css`
   :root {
     --dimmed-zindex: 10;
     --alert-zindex: 11;
-    background-color: var(--gray50);
   }
 
   html,
