@@ -25,6 +25,8 @@ import { colors } from "../styles/colorPalette";
 import { Input2 } from "../components/shared/Input2";
 import { TextField2 } from "../components/shared/TextField2";
 
+type existCheckProps = Pick<SignUpInfo, "email" | "displayName">;
+
 function SignUp() {
   const expEmail = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
   const expPassword =
@@ -49,6 +51,19 @@ function SignUp() {
     photoURL: "",
   });
 
+  useEffect(() => {
+    setExistCheck({ ...existCheck, email: "이메일 중복확인을 해주세요" });
+  }, [signUpInfo.email]);
+
+  useEffect(() => {
+    setExistCheck({ ...existCheck, displayName: "닉네임 중복확인을 해주세요" });
+  }, [signUpInfo.displayName]);
+
+  const [existCheck, setExistCheck] = useState<existCheckProps>({
+    email: "이메일 중복확인을 해주세요",
+    displayName: "닉네임 중복확인을 해주세요",
+  });
+
   const emailCheck = () => {
     isValidEmail(signUpInfo.email).then((data) => {
       if (data) {
@@ -56,6 +71,7 @@ function SignUp() {
         setSignUpInfo({ ...signUpInfo, email: "" });
       } else {
         alert("사용 가능한 이메일입니다");
+        setExistCheck({ ...existCheck, email: "" });
       }
     });
   };
@@ -67,6 +83,7 @@ function SignUp() {
         setSignUpInfo({ ...signUpInfo, displayName: "" });
       } else {
         alert("사용 가능한 닉네임입니다");
+        setExistCheck({ ...existCheck, displayName: "" });
       }
     });
   };
@@ -115,6 +132,16 @@ function SignUp() {
 
   const onSubmit = async () => {
     if (!isValidSignUpInfo()) {
+      return;
+    }
+
+    if (existCheck.email !== "") {
+      alert(existCheck.email);
+      return;
+    }
+
+    if (existCheck.displayName !== "") {
+      alert(existCheck.displayName);
       return;
     }
 
