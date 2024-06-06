@@ -50,7 +50,7 @@ function Login() {
 
       navigate("/");
     } catch (error) {
-      console.log(error);
+      alert("아이디와 비밀번호를 확인하세요");
     }
   };
 

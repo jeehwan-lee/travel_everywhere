@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Flex from "../components/shared/Flex";
 import { TextField } from "../components/shared/TextField";
 import { Spacing } from "../components/shared/Spacing";
@@ -22,19 +22,76 @@ import { Input2 } from "../components/shared/Input2";
 import { TextField2 } from "../components/shared/TextField2";
 
 function SignUp() {
+  const expEmail = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+  const expPassword =
+    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+  const expDisplayName = /^[A-Za-z]{4,8}$/;
+
   const [signUpInfo, setSignUpInfo] = useState<SignUpInfo>({
     email: "",
     password: "",
+    passwordCheck: "",
     uid: "",
     displayName: "",
     photoURL: "",
   });
+
+  const [signUpErrorMessage, setSignUpErrorMessage] = useState<SignUpInfo>({
+    email: "",
+    password: "",
+    passwordCheck: "",
+    uid: "",
+    displayName: "",
+    photoURL: "",
+  });
+
+  const isValidSignUpInfo = () => {
+    let isValid = true;
+    let newSignUpErrorMessage = { ...signUpErrorMessage };
+
+    if (expEmail.test(signUpInfo.email) === false) {
+      newSignUpErrorMessage.email = "이메일 형식을 확인하세요";
+      isValid = false;
+    } else {
+      newSignUpErrorMessage.email = "";
+    }
+
+    if (expPassword.test(signUpInfo.password) === false) {
+      newSignUpErrorMessage.password =
+        "비밀번호는 문자, 숫자, 특수문자 포함해서 8자리 이상입니다";
+      isValid = false;
+    } else {
+      newSignUpErrorMessage.password = "";
+    }
+
+    if (signUpInfo.password !== signUpInfo.passwordCheck) {
+      newSignUpErrorMessage.passwordCheck = "비밀번호가 일치하지 않습니다";
+      isValid = false;
+    } else {
+      newSignUpErrorMessage.passwordCheck = "";
+    }
+
+    if (expDisplayName.test(signUpInfo.displayName) === false) {
+      newSignUpErrorMessage.displayName = "닉네임은 4자이상 8자이하입니다";
+      isValid = false;
+    } else {
+      newSignUpErrorMessage.displayName = "";
+    }
+
+    setSignUpErrorMessage(newSignUpErrorMessage);
+
+    return isValid;
+  };
 
   const onChange = (e: { target: { name: any; value: any } }) => {
     setSignUpInfo({ ...signUpInfo, [e.target.name]: e.target.value });
   };
 
   const onSubmit = async () => {
+    if (!isValidSignUpInfo()) {
+      return;
+    }
+
     try {
       await createUserWithEmailAndPassword(
         auth,
@@ -42,6 +99,17 @@ function SignUp() {
         signUpInfo.password
       ).then((userCredential) => {
         registerUserInfo({ ...signUpInfo, uid: userCredential.user.uid });
+      });
+
+      alert("가입되었습니다");
+
+      setSignUpInfo({
+        email: "",
+        password: "",
+        passwordCheck: "",
+        uid: "",
+        displayName: "",
+        photoURL: "",
       });
     } catch (error) {
       console.log(error);
@@ -61,10 +129,12 @@ function SignUp() {
         <Spacing size={20} />
         <TextField2
           label="이메일"
-          name="id"
+          name="email"
           value={signUpInfo.email}
           onChange={onChange}
           placeholder="이메일을 입력해주세요"
+          helpMessage={signUpErrorMessage.email}
+          hasError={signUpErrorMessage.email !== ""}
         />
         <Spacing size={20} />
         <TextField2
@@ -72,17 +142,21 @@ function SignUp() {
           name="password"
           value={signUpInfo.password}
           onChange={onChange}
-          placeholder="비밀번호 입력 (문자, 숫자, 특수문자 포함 8~20자리)"
+          placeholder="비밀번호 입력 (문자, 숫자, 특수문자 포함 8자리 이상)"
           type="password"
+          helpMessage={signUpErrorMessage.password}
+          hasError={signUpErrorMessage.password !== ""}
         />
         <Spacing size={20} />
         <TextField2
           label="비밀번호 확인"
-          name="password"
-          value={signUpInfo.password}
+          name="passwordCheck"
+          value={signUpInfo.passwordCheck}
           onChange={onChange}
           placeholder="비밀번호를 재입력하세요"
           type="password"
+          helpMessage={signUpErrorMessage.passwordCheck}
+          hasError={signUpErrorMessage.passwordCheck !== ""}
         />
         <Spacing size={20} />
         <TextField2
@@ -90,7 +164,9 @@ function SignUp() {
           name="displayName"
           value={signUpInfo.displayName}
           onChange={onChange}
-          placeholder="닉네임을 입력하세요"
+          placeholder="닉네임을 입력 (4자이상 8자이하)"
+          helpMessage={signUpErrorMessage.displayName}
+          hasError={signUpErrorMessage.displayName !== ""}
         />
         <Spacing size={30} />
         <Button css={buttonStyles} onClick={() => onSubmit()}>
