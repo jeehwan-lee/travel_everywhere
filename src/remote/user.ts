@@ -16,6 +16,35 @@ export async function getUserInfo(uid: string) {
   )[0];
 }
 
+export async function isValidEmail(email: string) {
+  const snapshot = await getDocs(
+    query(collection(store, COLLECTIONS.USER), where("email", "==", email))
+  );
+
+  return snapshot.docs.map(
+    (doc) =>
+      ({
+        ...doc.data(),
+      } as User)
+  )[0];
+}
+
+export async function isValidDisplayName(displayName: string) {
+  const snapshot = await getDocs(
+    query(
+      collection(store, COLLECTIONS.USER),
+      where("displayName", "==", displayName)
+    )
+  );
+
+  return snapshot.docs.map(
+    (doc) =>
+      ({
+        ...doc.data(),
+      } as User)
+  )[0];
+}
+
 export async function registerUserInfo(newUser: User) {
   const registerUserInfo = await addDoc(
     collection(store, COLLECTIONS.USER),

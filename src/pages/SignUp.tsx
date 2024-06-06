@@ -14,7 +14,11 @@ import {
 } from "firebase/auth";
 import { auth } from "../remote/firebase";
 import { SignUpInfo } from "../models/signup";
-import { registerUserInfo } from "../remote/user";
+import {
+  isValidDisplayName,
+  isValidEmail,
+  registerUserInfo,
+} from "../remote/user";
 import { Link } from "react-router-dom";
 import { css } from "@emotion/react";
 import { colors } from "../styles/colorPalette";
@@ -44,6 +48,28 @@ function SignUp() {
     displayName: "",
     photoURL: "",
   });
+
+  const emailCheck = () => {
+    isValidEmail(signUpInfo.email).then((data) => {
+      if (data) {
+        alert("이미 존재하는 이메일입니다");
+        setSignUpInfo({ ...signUpInfo, email: "" });
+      } else {
+        alert("사용 가능한 이메일입니다");
+      }
+    });
+  };
+
+  const displayNameCheck = () => {
+    isValidDisplayName(signUpInfo.displayName).then((data) => {
+      if (data) {
+        alert("이미 존재하는 닉네임입니다");
+        setSignUpInfo({ ...signUpInfo, displayName: "" });
+      } else {
+        alert("사용 가능한 닉네임입니다");
+      }
+    });
+  };
 
   const isValidSignUpInfo = () => {
     let isValid = true;
@@ -127,15 +153,20 @@ function SignUp() {
           </Text>
         </Flex>
         <Spacing size={20} />
-        <TextField2
-          label="이메일"
-          name="email"
-          value={signUpInfo.email}
-          onChange={onChange}
-          placeholder="이메일을 입력해주세요"
-          helpMessage={signUpErrorMessage.email}
-          hasError={signUpErrorMessage.email !== ""}
-        />
+        <Flex css={textFieldWithButtonStyles}>
+          <TextField2
+            label="이메일"
+            name="email"
+            value={signUpInfo.email}
+            onChange={onChange}
+            placeholder="이메일을 입력해주세요"
+            helpMessage={signUpErrorMessage.email}
+            hasError={signUpErrorMessage.email !== ""}
+          />
+          <Button css={textFieldButtonStyle} onClick={emailCheck}>
+            중복확인
+          </Button>
+        </Flex>
         <Spacing size={20} />
         <TextField2
           label="비밀번호"
@@ -159,15 +190,20 @@ function SignUp() {
           hasError={signUpErrorMessage.passwordCheck !== ""}
         />
         <Spacing size={20} />
-        <TextField2
-          label="닉네임"
-          name="displayName"
-          value={signUpInfo.displayName}
-          onChange={onChange}
-          placeholder="닉네임을 입력 (4자이상 8자이하)"
-          helpMessage={signUpErrorMessage.displayName}
-          hasError={signUpErrorMessage.displayName !== ""}
-        />
+        <Flex css={textFieldWithButtonStyles}>
+          <TextField2
+            label="닉네임"
+            name="displayName"
+            value={signUpInfo.displayName}
+            onChange={onChange}
+            placeholder="닉네임을 입력 (4자이상 8자이하)"
+            helpMessage={signUpErrorMessage.displayName}
+            hasError={signUpErrorMessage.displayName !== ""}
+          />
+          <Button css={textFieldButtonStyle} onClick={displayNameCheck}>
+            중복확인
+          </Button>
+        </Flex>
         <Spacing size={30} />
         <Button css={buttonStyles} onClick={() => onSubmit()}>
           가입하기
@@ -199,6 +235,18 @@ const textStyles = css`
 const buttonStyles = css`
   width: 400px;
   font-size: 18px;
+`;
+
+const textFieldWithButtonStyles = css`
+  position: relative;
+  width: 400px;
+`;
+
+const textFieldButtonStyle = css`
+  position: absolute;
+  height: 30px;
+  top: 44px;
+  right: 12px;
 `;
 
 export default SignUp;
