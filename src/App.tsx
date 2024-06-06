@@ -24,6 +24,7 @@ import Test from "./pages/Test";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import { css } from "@emotion/react";
+import LeftMenubar from "./components/shared/LeftMenubar";
 
 function App() {
   useLoadKaKao();
@@ -45,7 +46,9 @@ function App() {
                 path="/profile"
                 element={
                   <PrivateRoute>
-                    <Profile />
+                    <LeftMenubar>
+                      <Profile />
+                    </LeftMenubar>
                   </PrivateRoute>
                 }
               />
