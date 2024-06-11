@@ -1,17 +1,28 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
-import React from "react";
+import React, { useState } from "react";
+import ProfileImageUpload from "../components/profile/ProfileImageUpload";
 import Button from "../components/shared/Button";
 import Flex from "../components/shared/Flex";
 import { Spacing } from "../components/shared/Spacing";
 import Text from "../components/shared/Text";
 import { TextField2 } from "../components/shared/TextField2";
 import useUser from "../hooks/auth/userUser";
+import { SignUpInfo } from "../models/signup";
 import { colors } from "../styles/colorPalette";
 
 function Profile() {
   const user = useUser();
+
+  const [profileInfo, setProfileInfo] = useState<SignUpInfo>({
+    email: user?.email as string,
+    password: "",
+    passwordCheck: "",
+    uid: "",
+    displayName: user?.displayName as string,
+    photoURL: user?.photoURL || "",
+  });
 
   if (user != null) {
     return (
@@ -19,15 +30,11 @@ function Profile() {
         <Flex direction="column" align="center" css={containerStyles}>
           <Spacing size={40} />
           <Flex align="center" direction="column">
-            <img
-              src={
-                user.photoURL ??
-                "https://cdn4.iconfinder.com/data/icons/glyphs/24/icons_user2-64.png"
+            <ProfileImageUpload
+              imageUrl={profileInfo.photoURL}
+              onChangeFile={(url) =>
+                setProfileInfo({ ...profileInfo, photoURL: url })
               }
-              alt=""
-              width={100}
-              height={100}
-              style={{ borderRadius: "100%", cursor: "pointer" }}
             />
             <Spacing size={14} />
             <Text typography="t4" bold={true}>
