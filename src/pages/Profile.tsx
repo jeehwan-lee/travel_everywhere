@@ -10,19 +10,110 @@ import Text from "../components/shared/Text";
 import { TextField2 } from "../components/shared/TextField2";
 import useUser from "../hooks/auth/userUser";
 import { SignUpInfo } from "../models/signup";
+import { isValidDisplayName, modifyUserInfo } from "../remote/user";
 import { colors } from "../styles/colorPalette";
 
 function Profile() {
   const user = useUser();
 
+  const expPassword =
+    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+  const expDisplayName = /^[A-Za-z]{4,8}$/;
+
   const [profileInfo, setProfileInfo] = useState<SignUpInfo>({
     email: user?.email as string,
     password: "",
     passwordCheck: "",
-    uid: "",
+    uid: user?.uid as string,
     displayName: user?.displayName as string,
     photoURL: user?.photoURL || "",
   });
+
+  const [profileErrorMessage, setProfileUpErrorMessage] = useState<SignUpInfo>({
+    email: "",
+    password: "",
+    passwordCheck: "",
+    uid: "",
+    displayName: "",
+    photoURL: "",
+  });
+
+  const [displayNameCheck, setDisplayNameCheck] =
+    useState<string>("닉네임 중복확인을 해주세요");
+
+  const displayNameExistCheck = () => {
+    isValidDisplayName(profileInfo.displayName).then((data) => {
+      if (data) {
+        alert("이미 존재하는 닉네임입니다");
+        setProfileInfo({ ...profileInfo, displayName: "" });
+      } else {
+        alert("사용 가능한 닉네임입니다");
+        setDisplayNameCheck("");
+      }
+    });
+  };
+
+  const onChange = (e: { target: { name: any; value: any } }) => {
+    setProfileInfo({ ...profileInfo, [e.target.name]: e.target.value });
+  };
+
+  const isValidProfileInfo = () => {
+    let isValid = true;
+    let newProfileErrorMessage = { ...profileInfo };
+
+    if (expPassword.test(profileInfo.password) === false) {
+      newProfileErrorMessage.password =
+        "비밀번호는 문자, 숫자, 특수문자 포함해서 8자리 이상입니다";
+      isValid = false;
+    } else {
+      newProfileErrorMessage.password = "";
+    }
+
+    if (profileInfo.password !== profileInfo.passwordCheck) {
+      newProfileErrorMessage.passwordCheck = "비밀번호가 일치하지 않습니다";
+      isValid = false;
+    } else {
+      newProfileErrorMessage.passwordCheck = "";
+    }
+
+    if (expDisplayName.test(profileInfo.displayName) === false) {
+      newProfileErrorMessage.displayName = "닉네임은 4자이상 8자이하입니다";
+      isValid = false;
+    } else {
+      newProfileErrorMessage.displayName = "";
+    }
+
+    setProfileUpErrorMessage(newProfileErrorMessage);
+
+    return isValid;
+  };
+
+  const onSubmit = async () => {
+    console.log("dfqdf");
+    if (!isValidProfileInfo()) {
+      return;
+    }
+
+    console.log("12312312");
+
+    if (displayNameCheck !== "") {
+      alert(displayNameCheck);
+      return;
+    }
+
+    try {
+      console.log("dddd");
+      await modifyUserInfo(
+        profileInfo.displayName,
+        profileInfo.photoURL as string,
+        profileInfo.uid
+      );
+
+      alert("수정되었습니다.");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   if (user != null) {
     return (
@@ -49,8 +140,13 @@ function Profile() {
               label="닉네임"
               name="displayName"
               placeholder="닉네임을 입력 (4자이상 8자이하)"
+              onChange={onChange}
+              helpMessage={profileErrorMessage.displayName}
+              hasError={profileErrorMessage.displayName !== ""}
             />
-            <Button css={textFieldButtonStyle}>중복확인</Button>
+            <Button css={textFieldButtonStyle} onClick={displayNameExistCheck}>
+              중복확인
+            </Button>
           </Flex>
           <Spacing size={20} />
           <TextField2
@@ -58,6 +154,9 @@ function Profile() {
             name="password"
             placeholder="비밀번호 입력 (문자, 숫자, 특수문자 포함 8자리 이상)"
             type="password"
+            onChange={onChange}
+            helpMessage={profileErrorMessage.password}
+            hasError={profileErrorMessage.password !== ""}
           />
           <Spacing size={20} />
           <TextField2
@@ -65,9 +164,14 @@ function Profile() {
             name="passwordCheck"
             placeholder="비밀번호를 재입력하세요"
             type="password"
+            onChange={onChange}
+            helpMessage={profileErrorMessage.passwordCheck}
+            hasError={profileErrorMessage.passwordCheck !== ""}
           />
           <Spacing size={30} />
-          <Button css={buttonStyles}>수정하기</Button>
+          <Button css={buttonStyles} onClick={() => onSubmit()}>
+            수정하기
+          </Button>
           <Spacing size={20} />
         </Flex>
       </>

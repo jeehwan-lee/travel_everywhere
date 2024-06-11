@@ -1,4 +1,12 @@
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import { store } from "./firebase";
 import { COLLECTIONS } from "../constants";
 import { User } from "../models/user";
@@ -51,4 +59,21 @@ export async function registerUserInfo(newUser: User) {
     newUser
   );
   return registerUserInfo.id;
+}
+
+export async function modifyUserInfo(
+  displayName: string,
+  photoURL: string,
+  uid: string
+) {
+  const snapshot = await getDocs(
+    query(collection(store, COLLECTIONS.USER), where("uid", "==", uid))
+  );
+
+  snapshot.docs.map((doc) => {
+    updateDoc(doc.ref, {
+      displayName: displayName,
+      photoURL: photoURL,
+    });
+  });
 }
