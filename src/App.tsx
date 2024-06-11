@@ -89,7 +89,9 @@ function App() {
                 path="/reservation/done"
                 element={
                   <PrivateRoute>
-                    <ReservationDone />
+                    <LeftMenubar>
+                      <ReservationDone />
+                    </LeftMenubar>
                   </PrivateRoute>
                 }
               />
@@ -97,7 +99,9 @@ function App() {
                 path="/reservation/list"
                 element={
                   <PrivateRoute>
-                    <ReservationList />
+                    <LeftMenubar>
+                      <ReservationList />
+                    </LeftMenubar>
                   </PrivateRoute>
                 }
               />
@@ -105,7 +109,9 @@ function App() {
                 path="/register/list"
                 element={
                   <PrivateRoute>
-                    <RegisterHotelList />
+                    <LeftMenubar>
+                      <RegisterHotelList />
+                    </LeftMenubar>
                   </PrivateRoute>
                 }
               />

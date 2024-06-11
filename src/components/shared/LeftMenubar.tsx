@@ -2,12 +2,16 @@
 
 import { css } from "@emotion/react";
 import React from "react";
+import { Link, useLocation } from "react-router-dom";
 import { colors } from "../../styles/colorPalette";
 import Flex from "./Flex";
 import { Spacing } from "./Spacing";
 import Text from "./Text";
 
 function LeftMenubar({ children }: { children: React.ReactNode }) {
+  const location = useLocation();
+  const path = location.pathname.slice(1);
+
   return (
     <Flex>
       <Flex
@@ -21,11 +25,29 @@ function LeftMenubar({ children }: { children: React.ReactNode }) {
             마이페이지
           </Text>
           <Spacing size={30} />
-          <Text typography="t4">회원정보</Text>
+          <Link to="/profile">
+            <Text typography="t4" bold={path === "profile" ? true : false}>
+              회원정보
+            </Text>
+          </Link>
           <Spacing size={30} />
-          <Text typography="t4">예약내역</Text>
+          <Link to="/reservation/list">
+            <Text
+              typography="t4"
+              bold={path === "reservation/list" ? true : false}
+            >
+              예약내역
+            </Text>
+          </Link>
           <Spacing size={30} />
-          <Text typography="t4">등록한 호텔</Text>
+          <Link to="/register/list">
+            <Text
+              typography="t4"
+              bold={path === "register/list" ? true : false}
+            >
+              등록한 호텔
+            </Text>
+          </Link>
         </Flex>
         <Flex direction="column">
           <Text typography="t4">로그아웃</Text>

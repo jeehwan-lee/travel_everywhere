@@ -172,7 +172,7 @@ function Profile() {
             helpMessage={profileErrorMessage.passwordCheck}
             hasError={profileErrorMessage.passwordCheck !== ""}
           />
-          <Spacing size={30} />
+          <Spacing size={40} />
           <Button css={buttonStyles} onClick={() => onSubmit()}>
             수정하기
           </Button>
