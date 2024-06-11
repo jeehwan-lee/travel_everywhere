@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
+import { updatePassword } from "firebase/auth";
 import React, { useState } from "react";
 import ProfileImageUpload from "../components/profile/ProfileImageUpload";
 import Button from "../components/shared/Button";
@@ -10,6 +11,7 @@ import Text from "../components/shared/Text";
 import { TextField2 } from "../components/shared/TextField2";
 import useUser from "../hooks/auth/userUser";
 import { SignUpInfo } from "../models/signup";
+import { auth } from "../remote/firebase";
 import { isValidDisplayName, modifyUserInfo } from "../remote/user";
 import { colors } from "../styles/colorPalette";
 
@@ -89,12 +91,13 @@ function Profile() {
   };
 
   const onSubmit = async () => {
-    console.log("dfqdf");
-    if (!isValidProfileInfo()) {
+    if (!auth.currentUser) {
       return;
     }
 
-    console.log("12312312");
+    if (!isValidProfileInfo()) {
+      return;
+    }
 
     if (displayNameCheck !== "") {
       alert(displayNameCheck);
@@ -102,12 +105,13 @@ function Profile() {
     }
 
     try {
-      console.log("dddd");
       await modifyUserInfo(
         profileInfo.displayName,
         profileInfo.photoURL as string,
         profileInfo.uid
       );
+
+      await updatePassword(auth.currentUser, profileInfo.password);
 
       alert("수정되었습니다.");
     } catch (error) {
