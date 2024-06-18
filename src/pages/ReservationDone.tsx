@@ -38,7 +38,7 @@ function ReservationDone() {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <Flex direction="column" css={containerStyles}>
       <Spacing size={80} />
       <Flex direction="column" align="center">
         <img
@@ -70,9 +70,13 @@ function ReservationDone() {
           </Button>
         </Button.Group>
       </div>
-    </div>
+    </Flex>
   );
 }
+
+const containerStyles = css`
+  width: 800px;
+`;
 
 const imageStyles = css`
   width: 60%;

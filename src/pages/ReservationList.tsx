@@ -1,7 +1,16 @@
+/** @jsxImportSource @emotion/react */
+
+import { css } from "@emotion/react";
 import React from "react";
+import { addDelimiter } from "../utils/addDelimiter";
 import { Link } from "react-router-dom";
 import useReservationList from "../components/reservation/hooks/useReservationList";
+import Flex from "../components/shared/Flex";
 import ListRow from "../components/shared/ListRow";
+import { Spacing } from "../components/shared/Spacing";
+import Text from "../components/shared/Text";
+import { colors } from "../styles/colorPalette";
+import { MdChevronRight } from "react-icons/md";
 
 function ReservationList() {
   const { data, isLoading } = useReservationList();
@@ -11,30 +20,62 @@ function ReservationList() {
   }
 
   return (
-    <div>
+    <Flex direction="column" css={containerStyles}>
+      <Spacing size={20} />
       {data.map(({ hotel, reservation }) => (
-        <Link to={`/reservation/done?reservationId=${reservation.id}`}>
-          <ListRow
-            key={reservation.id}
-            left={
+        <Flex css={itemStyles}>
+          <Link
+            to={`/reservation/done?reservationId=${reservation.id}`}
+            style={{ width: "100%" }}
+          >
+            <Flex>
               <img
+                css={imageStyles}
                 src={hotel.images[0]}
                 alt={`${hotel.name} 이미지`}
-                width={80}
-                height={80}
+                width={100}
+                height={100}
               />
-            }
-            contents={
-              <ListRow.Texts
-                title={hotel.name}
-                subTitle={`${reservation.startDate} ~ ${reservation.endDate}`}
-              />
-            }
-          />
-        </Link>
+              <Spacing size={20} direction="horizontal" />
+              <Flex direction="column">
+                <Text bold={true} typography="t4">
+                  {hotel.name}
+                </Text>
+                <Spacing size={5} />
+                <Text
+                  typography="t6"
+                  color="gray500"
+                >{`${reservation.startDate} ~ ${reservation.endDate}`}</Text>
+                <Spacing size={10} />
+                <Text typography="t6" bold={true}>
+                  {addDelimiter(hotel.price)}원
+                </Text>
+              </Flex>
+            </Flex>
+            <Flex justify="flex-end" align="center">
+              <Text color="gray600">상세보기</Text>
+              <MdChevronRight color={colors.gray500} />
+            </Flex>
+          </Link>
+        </Flex>
       ))}
-    </div>
+    </Flex>
   );
 }
+
+const containerStyles = css`
+  width: 800px;
+`;
+
+const itemStyles = css`
+  padding: 30px 20px 10px 30px;
+  margin: 10px 40px;
+  border-radius: 10px;
+  background-color: ${colors.gray50};
+`;
+
+const imageStyles = css`
+  border-radius: 10px;
+`;
 
 export default ReservationList;
