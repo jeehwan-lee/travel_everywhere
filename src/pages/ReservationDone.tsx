@@ -11,6 +11,7 @@ import { getHotelWithRoom } from "../remote/hotel";
 import { getReservation } from "../remote/reservation";
 import { useState } from "react";
 import { css } from "@emotion/react";
+import { colors } from "../styles/colorPalette";
 
 function ReservationDone() {
   const { reservationId } = qs.parse(window.location.search, {
@@ -39,37 +40,49 @@ function ReservationDone() {
 
   return (
     <Flex direction="column" css={containerStyles}>
-      <Spacing size={80} />
-      <Flex direction="column" align="center">
-        <img
-          css={imageStyles}
-          src={fetchedHotelRoom?.room?.imageUrl}
-          alt=""
-          width="50%"
-          height="50%"
-        />
+      <Spacing size={40} />
+      <img css={imageStyles} src={fetchedHotelRoom?.room?.imageUrl} alt="" />
+      <Flex direction="column" justify="flex-start" css={itemStyles}>
         <Spacing size={30} />
         <Text typography="t2" bold>
           {fetchedHotelRoom?.hotel.name}
         </Text>
-
-        <Text>{fetchedHotelRoom?.room.roomName}</Text>
-        <Text>{data?.formValues.name}</Text>
-        <Text>{data?.formValues.email}</Text>
-        <Text>{data?.formValues.phone}</Text>
-        <Text>{data?.formValues.special_request}</Text>
-        <Spacing size={8} />
+        <Spacing size={16} />
+        <Flex direction="row">
+          <Flex direction="column" style={{ width: "150px" }}>
+            <Text color="gray500">객실</Text>
+            <Spacing size={5} />
+            <Text color="gray500">성함</Text>
+            <Spacing size={5} />
+            <Text color="gray500">이메일</Text>
+            <Spacing size={5} />
+            <Text color="gray500">전화번호</Text>
+            <Spacing size={5} />
+            <Text color="gray500">요구사항</Text>
+          </Flex>
+          <Flex direction="column">
+            <Text>{fetchedHotelRoom?.room.roomName}</Text>
+            <Spacing size={5} />
+            <Text>{data?.formValues.name}</Text>
+            <Spacing size={5} />
+            <Text>{data?.formValues.email}</Text>
+            <Spacing size={5} />
+            <Text>{data?.formValues.phone}</Text>
+            <Spacing size={5} />
+            <Text>
+              {data?.formValues.special_request == ""
+                ? "없음"
+                : data?.formValues.special_request}
+            </Text>
+          </Flex>
+        </Flex>
+        <Spacing size={16} />
         <Text>예약이 완료되었습니다.</Text>
       </Flex>
-      <Spacing size={40} />
-      <div style={{ padding: "24px" }}>
-        <Button.Group>
-          <Button onClick={() => navigate("/")}>홈으로</Button>
-          <Button onClick={() => navigate("/reservation/list")}>
-            예약 리스트로
-          </Button>
-        </Button.Group>
-      </div>
+      <Spacing size={20} />
+      <Button css={buttonStyles} onClick={() => navigate("/reservation/list")}>
+        예약 리스트로
+      </Button>
     </Flex>
   );
 }
@@ -79,10 +92,21 @@ const containerStyles = css`
 `;
 
 const imageStyles = css`
-  width: 60%;
-  height: 60%;
+  width: 450px;
+  height: 420px;
   object-fit: cover;
   border-radius: 4px;
+  margin-left: 190px;
+`;
+
+const itemStyles = css`
+  margin-left: 170px;
+`;
+
+const buttonStyles = css`
+  margin-left: 170px;
+  width: 490px;
+  font-size: 16px;
 `;
 
 export default ReservationDone;

@@ -34,7 +34,11 @@ function LeftMenubar({ children }: { children: React.ReactNode }) {
           <Link to="/reservation/list">
             <Text
               typography="t4"
-              bold={path === "reservation/list" ? true : false}
+              bold={
+                path === "reservation/list" || path === "reservation/done"
+                  ? true
+                  : false
+              }
             >
               예약내역
             </Text>
