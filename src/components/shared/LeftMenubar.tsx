@@ -56,6 +56,12 @@ function LeftMenubar({ children }: { children: React.ReactNode }) {
               등록한 호텔
             </Text>
           </Link>
+          <Spacing size={30} />
+          <Link to="/like/list">
+            <Text typography="t4" bold={path === "like/list" ? true : false}>
+              찜한 호텔
+            </Text>
+          </Link>
         </Flex>
         <Flex direction="column">
           <Text typography="t4">로그아웃</Text>
