@@ -14,6 +14,8 @@ import { css } from "@emotion/react";
 import { colors } from "../styles/colorPalette";
 
 function ReservationDone() {
+  const navigate = useNavigate();
+
   const { reservationId } = qs.parse(window.location.search, {
     ignoreQueryPrefix: true,
   }) as {
@@ -35,8 +37,6 @@ function ReservationDone() {
       },
     }
   );
-
-  const navigate = useNavigate();
 
   return (
     <Flex direction="column" css={containerStyles}>

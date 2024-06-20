@@ -25,6 +25,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import { css } from "@emotion/react";
 import LeftMenubar from "./components/shared/LeftMenubar";
+import ReservationUserList from "./pages/ReservationUserList";
 
 function App() {
   useLoadKaKao();
@@ -101,6 +102,16 @@ function App() {
                   <PrivateRoute>
                     <LeftMenubar>
                       <ReservationList />
+                    </LeftMenubar>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/reservation/user/list"
+                element={
+                  <PrivateRoute>
+                    <LeftMenubar>
+                      <ReservationUserList />
                     </LeftMenubar>
                   </PrivateRoute>
                 }
