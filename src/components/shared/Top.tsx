@@ -11,6 +11,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { colors } from "../../styles/colorPalette";
 import { useNavigate } from "react-router-dom";
 import useUser from "../../hooks/auth/userUser";
+import { removeHotel } from "../../api/hotel";
 
 interface TopProps {
   title: string;
@@ -64,7 +65,7 @@ function Top({ title, subTitle, id, userId }: TopProps) {
               <Text
                 typography="t5"
                 css={dropDownTextStyles}
-                onClick={() => navigate("/profile")}
+                onClick={() => navigate("/")}
               >
                 수정하기
               </Text>
@@ -72,7 +73,7 @@ function Top({ title, subTitle, id, userId }: TopProps) {
               <Text
                 typography="t5"
                 css={dropDownTextStyles}
-                onClick={() => navigate("/")}
+                onClick={() => removeHotel(id).then(() => navigate("/"))}
               >
                 삭제하기
               </Text>

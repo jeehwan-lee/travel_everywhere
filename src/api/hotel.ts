@@ -1,5 +1,6 @@
 import {
   collection,
+  deleteDoc,
   doc,
   documentId,
   getDoc,
@@ -83,4 +84,10 @@ export async function getHotelWithRoom({
     hotel: hotelSnapshot.data() as Hotel,
     room: roomSnapshot.data() as Room,
   };
+}
+
+export function removeHotel(hotelId: string) {
+  const hotelRef = doc(store, COLLECTIONS.HOTEL, hotelId);
+
+  return deleteDoc(hotelRef);
 }
