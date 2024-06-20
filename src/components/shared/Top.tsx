@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { css } from "@emotion/react";
 import Flex from "./Flex";
 import { Spacing } from "./Spacing";
@@ -27,9 +27,27 @@ function Top({ title, subTitle, id, userId }: TopProps) {
 
   const [showDropDownMenu, setShowDropDownMenu] = useState<Boolean>(false);
 
+  const dropdownMenuRef = useRef<any>(null);
+
+  const handleClickOutSide = (e: any) => {
+    if (
+      dropdownMenuRef.current &&
+      !dropdownMenuRef.current.contains(e.target)
+    ) {
+      setShowDropDownMenu(false);
+    }
+  };
+
   const editButtonClick = () => {
     setShowDropDownMenu((prev) => !prev);
   };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutSide);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutSide);
+    };
+  }, []);
 
   return (
     <Flex
@@ -53,7 +71,7 @@ function Top({ title, subTitle, id, userId }: TopProps) {
             onClick={editButtonClick}
           />
           {showDropDownMenu && (
-            <Flex css={dropDownStyles} direction="column">
+            <Flex css={dropDownStyles} direction="column" ref={dropdownMenuRef}>
               <Text
                 typography="t5"
                 css={dropDownTextStyles}

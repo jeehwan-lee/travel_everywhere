@@ -5,7 +5,7 @@ import Flex from "./Flex";
 import Button from "./Button";
 import { css } from "@emotion/react";
 import { colors } from "../../styles/colorPalette";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 import useUser from "../../hooks/auth/userUser";
 import { Spacing } from "./Spacing";
 import useGoogleSignin from "../../hooks/useGoogleSignin";
@@ -23,11 +23,29 @@ function Navbar() {
   const navigate = useNavigate();
   const user = useUser();
 
+  const dropdownMenuRef = useRef<any>(null);
+
   const [showDropDownMenu, setShowDropDownMenu] = useState<Boolean>(false);
+
+  const handleClickOutSide = (e: any) => {
+    if (
+      dropdownMenuRef.current &&
+      !dropdownMenuRef.current.contains(e.target)
+    ) {
+      setShowDropDownMenu(false);
+    }
+  };
 
   const profileClick = () => {
     setShowDropDownMenu((prev) => !prev);
   };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutSide);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutSide);
+    };
+  }, []);
 
   const renderButton = useCallback(() => {
     if (user != null) {
@@ -52,7 +70,11 @@ function Navbar() {
               {showDropDownMenu ? (
                 <>
                   <FaCaretUp size={18} />
-                  <Flex css={dropDownStyles} direction="column">
+                  <Flex
+                    css={dropDownStyles}
+                    direction="column"
+                    ref={dropdownMenuRef}
+                  >
                     <Text
                       typography="t5"
                       css={dropDownTextStyles}
