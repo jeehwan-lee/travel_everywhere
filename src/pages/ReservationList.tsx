@@ -6,7 +6,6 @@ import { addDelimiter } from "../utils/addDelimiter";
 import { Link } from "react-router-dom";
 import useReservationList from "../components/reservation/hooks/useReservationList";
 import Flex from "../components/shared/Flex";
-import ListRow from "../components/shared/ListRow";
 import { Spacing } from "../components/shared/Spacing";
 import Text from "../components/shared/Text";
 import { colors } from "../styles/colorPalette";
