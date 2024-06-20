@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useInfiniteQuery } from "react-query";
-import { getHotels } from "../../../remote/hotel";
+import { getHotels } from "../../../api/hotel";
 
 function useHotels() {
   const {

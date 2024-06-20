@@ -12,13 +12,13 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { auth } from "../remote/firebase";
+import { auth } from "../api/firebase";
 import { SignUpInfo } from "../models/signup";
 import {
   isValidDisplayName,
   isValidEmail,
   registerUserInfo,
-} from "../remote/user";
+} from "../api/user";
 import { Link } from "react-router-dom";
 import { css } from "@emotion/react";
 import { colors } from "../styles/colorPalette";

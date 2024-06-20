@@ -1,9 +1,9 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { useState } from "react";
-import { auth, store } from "../../remote/firebase";
+import { auth, store } from "../../api/firebase";
 import { useSetRecoilState } from "recoil";
 import { userAtom } from "../../store/atom/user";
-import { getUserInfo } from "../../remote/user";
+import { getUserInfo } from "../../api/user";
 
 function AuthGuard({ children }: { children: React.ReactNode }) {
   const setUser = useSetRecoilState(userAtom);

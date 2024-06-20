@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import useUser from "../../../hooks/auth/userUser";
-import { getReservations } from "../../../remote/reservation";
+import { getReservations } from "../../../api/reservation";
 
 export default function useReservationList() {
   const user = useUser();

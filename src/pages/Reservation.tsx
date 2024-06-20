@@ -10,7 +10,7 @@ import { Spacing } from "../components/shared/Spacing";
 import Text from "../components/shared/Text";
 import { TextField } from "../components/shared/TextField";
 import useUser from "../hooks/auth/userUser";
-import { makeReservation } from "../remote/reservation";
+import { makeReservation } from "../api/reservation";
 import { addDelimiter } from "../utils/addDelimiter";
 
 interface formValuesProps {

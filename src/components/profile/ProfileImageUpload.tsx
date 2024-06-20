@@ -1,6 +1,6 @@
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import React, { useRef } from "react";
-import { storage } from "../../remote/firebase";
+import { storage } from "../../api/firebase";
 
 interface ProfileImageUploadProps {
   imageUrl?: string;

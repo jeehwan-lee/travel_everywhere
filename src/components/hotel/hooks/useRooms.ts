@@ -1,8 +1,8 @@
 import { useQuery, useQueryClient } from "react-query";
-import { getRooms } from "../../../remote/room";
+import { getRooms } from "../../../api/room";
 import { useEffect } from "react";
 import { collection, doc, onSnapshot } from "firebase/firestore";
-import { store } from "../../../remote/firebase";
+import { store } from "../../../api/firebase";
 import { COLLECTIONS } from "../../../constants";
 import { Room } from "../../../models/room";
 import { unsubscribe } from "diagnostics_channel";

@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import useUser from "../../../hooks/auth/userUser";
-import { getRegisterHotelList } from "../../../remote/register";
+import { getRegisterHotelList } from "../../../api/register";
 
 export default function useRegisterHotelList() {
   const user = useUser();

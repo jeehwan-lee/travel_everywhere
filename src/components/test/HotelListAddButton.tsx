@@ -1,7 +1,7 @@
 import { collection, doc, writeBatch } from "firebase/firestore";
 import { COLLECTIONS } from "../../constants";
 import { EVENTS, HOTEL, HOTEL_NAMES, IMAGES, ROOMS } from "../../mock/data";
-import { store } from "../../remote/firebase";
+import { store } from "../../api/firebase";
 import Button from "../shared/Button";
 
 function random(min: number, max: number) {

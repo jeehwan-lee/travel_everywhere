@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { getRecommendHotels } from "../../../remote/hotel";
+import { getRecommendHotels } from "../../../api/hotel";
 
 function useRecommendHotels({ hotelIds }: { hotelIds: string[] }) {
   return useQuery(

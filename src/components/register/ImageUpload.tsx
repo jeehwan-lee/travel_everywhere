@@ -1,7 +1,7 @@
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import React, { useRef } from "react";
 import { PiImagesThin } from "react-icons/pi";
-import { storage } from "../../remote/firebase";
+import { storage } from "../../api/firebase";
 import Flex from "../shared/Flex";
 import Text from "../shared/Text";
 

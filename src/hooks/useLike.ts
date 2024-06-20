@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { useAlertContext } from "../contexts/AlertContext";
 import { Hotel } from "../models/hotel";
-import { getLikes, toggleLike } from "../remote/like";
+import { getLikes, toggleLike } from "../api/like";
 import useUser from "./auth/userUser";
 
 function useLike() {

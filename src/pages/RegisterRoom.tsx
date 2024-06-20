@@ -13,7 +13,7 @@ import { PiImagesThin } from "react-icons/pi";
 import Grid from "../components/shared/Grid";
 import ImageUpload from "../components/register/ImageUpload";
 import ImageItem from "../components/register/ImageItem";
-import { registerHotel, registerRoom } from "../remote/register";
+import { registerHotel, registerRoom } from "../api/register";
 import { parse } from "qs";
 
 function RegisterRoom() {

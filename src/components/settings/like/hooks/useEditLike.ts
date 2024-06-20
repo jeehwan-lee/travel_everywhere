@@ -3,7 +3,7 @@ import { useQueryClient } from "react-query";
 import { useAlertContext } from "../../../../contexts/AlertContext";
 import useLike from "../../../../hooks/useLike";
 import { Like } from "../../../../models/like";
-import { updateOrder } from "../../../../remote/like";
+import { updateOrder } from "../../../../api/like";
 
 function useEditLike() {
   const { data } = useLike();

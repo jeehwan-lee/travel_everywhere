@@ -1,6 +1,6 @@
 import { collection, getDocs, writeBatch } from "firebase/firestore";
 import { COLLECTIONS } from "../../constants";
-import { store } from "../../remote/firebase";
+import { store } from "../../api/firebase";
 import Button from "../shared/Button";
 
 function RecommendHotelButton() {

@@ -10,7 +10,7 @@ import useUser from "../../hooks/auth/userUser";
 import { Spacing } from "./Spacing";
 import useGoogleSignin from "../../hooks/useGoogleSignin";
 import { signOut } from "firebase/auth";
-import { auth } from "../../remote/firebase";
+import { auth } from "../../api/firebase";
 import Text from "./Text";
 import { Input } from "./Input";
 import SearchInput from "./SearchInput";

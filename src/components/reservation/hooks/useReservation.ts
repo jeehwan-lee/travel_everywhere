@@ -1,8 +1,8 @@
 import { useMutation, useQuery } from "react-query";
 import { useAlertContext } from "../../../contexts/AlertContext";
 import { Reservation } from "../../../models/reservation";
-import { getHotelWithRoom } from "../../../remote/hotel";
-import { makeReservation } from "../../../remote/reservation";
+import { getHotelWithRoom } from "../../../api/hotel";
+import { makeReservation } from "../../../api/reservation";
 
 function useReservation({
   hotelId,

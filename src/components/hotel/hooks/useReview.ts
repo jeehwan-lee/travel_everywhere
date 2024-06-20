@@ -5,7 +5,7 @@ import {
   modifyReview,
   removeReview,
   writeReview,
-} from "../../../remote/review";
+} from "../../../api/review";
 
 function useReview({ hotelId }: { hotelId: string }) {
   const { data, isLoading } = useQuery(["reviews", hotelId], () =>

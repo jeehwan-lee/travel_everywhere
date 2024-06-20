@@ -2,7 +2,7 @@ import { collection, getDocs, writeBatch } from "firebase/firestore";
 import React from "react";
 import { COLLECTIONS } from "../../constants";
 import { FORMS } from "../../mock/data";
-import { store } from "../../remote/firebase";
+import { store } from "../../api/firebase";
 import Button from "../shared/Button";
 
 function HotelFormAddButton() {

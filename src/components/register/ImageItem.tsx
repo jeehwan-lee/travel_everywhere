@@ -1,7 +1,7 @@
 import { deleteObject, ref } from "firebase/storage";
 import React from "react";
 import { MdCancel } from "react-icons/md";
-import { storage } from "../../remote/firebase";
+import { storage } from "../../api/firebase";
 
 interface ImageItemProps {
   url: string;

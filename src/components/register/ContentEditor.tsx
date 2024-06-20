@@ -2,7 +2,7 @@ import React, { InputHTMLAttributes, useRef, useMemo, useState } from "react";
 import ReactQuill from "react-quill";
 import Text from "../shared/Text";
 import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
-import { storage } from "../../remote/firebase";
+import { storage } from "../../api/firebase";
 
 interface ContentEditorProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: React.ReactNode;

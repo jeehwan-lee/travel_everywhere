@@ -11,8 +11,8 @@ import Text from "../components/shared/Text";
 import { TextField2 } from "../components/shared/TextField2";
 import useUser from "../hooks/auth/userUser";
 import { SignUpInfo } from "../models/signup";
-import { auth } from "../remote/firebase";
-import { isValidDisplayName, modifyUserInfo } from "../remote/user";
+import { auth } from "../api/firebase";
+import { isValidDisplayName, modifyUserInfo } from "../api/user";
 import { colors } from "../styles/colorPalette";
 
 function Profile() {

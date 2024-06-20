@@ -4,7 +4,7 @@ import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { COLLECTIONS } from "../constants";
-import { auth, store } from "../remote/firebase";
+import { auth, store } from "../api/firebase";
 
 function useGoogleSignin() {
   const navigate = useNavigate();
