@@ -14,8 +14,24 @@ import { MdChevronRight } from "react-icons/md";
 function ReservationList() {
   const { data, isLoading } = useReservationList();
 
-  if (data == null || isLoading == true) {
-    return null;
+  if (data == null || data.length === 0 || isLoading == true) {
+    return (
+      <Flex
+        direction="column"
+        align="center"
+        justify="center"
+        css={containerStyles}
+      >
+        <img
+          src="https://cdn2.iconfinder.com/data/icons/essential-web-5/50/note-short-reminder-memo-brief-512.png"
+          alt=""
+          width={50}
+          height={50}
+        />
+        <Spacing size={15} />
+        <Text typography="t6">예약한 호텔이 없습니다.</Text>
+      </Flex>
+    );
   }
 
   return (

@@ -2,7 +2,7 @@
 
 import { css } from "@emotion/react";
 import { updatePassword } from "firebase/auth";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ProfileImageUpload from "../components/profile/ProfileImageUpload";
 import Button from "../components/shared/Button";
 import Flex from "../components/shared/Flex";
@@ -42,6 +42,10 @@ function Profile() {
 
   const [displayNameCheck, setDisplayNameCheck] =
     useState<string>("닉네임 중복확인을 해주세요");
+
+  useEffect(() => {
+    setDisplayNameCheck("닉네임 중복확인을 해주세요");
+  }, [profileErrorMessage.displayName]);
 
   const displayNameExistCheck = () => {
     isValidDisplayName(profileInfo.displayName).then((data) => {

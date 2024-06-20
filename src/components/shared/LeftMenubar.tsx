@@ -40,7 +40,7 @@ function LeftMenubar({ children }: { children: React.ReactNode }) {
                   : false
               }
             >
-              예약내역
+              나의예약
             </Text>
           </Link>
           <Spacing size={30} />
