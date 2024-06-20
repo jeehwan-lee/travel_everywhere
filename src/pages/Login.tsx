@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import React, { useState } from "react";
+import React, { KeyboardEvent, useState } from "react";
 import Flex from "../components/shared/Flex";
 import { TextField } from "../components/shared/TextField";
 import { Spacing } from "../components/shared/Spacing";
@@ -29,6 +29,12 @@ function Login() {
 
   const onChange = (e: { target: { name: any; value: any } }) => {
     setLoginInfo({ ...loginInfo, [e.target.name]: e.target.value });
+  };
+
+  const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      onSubmit();
+    }
   };
 
   const onSubmit = async () => {
@@ -70,6 +76,7 @@ function Login() {
           value={loginInfo.id}
           onChange={onChange}
           placeholder="이메일"
+          onKeyDown={onKeyDown}
         />
         <Spacing size={20} />
         <Input2
@@ -78,6 +85,7 @@ function Login() {
           onChange={onChange}
           placeholder="비밀번호"
           type="password"
+          onKeyDown={onKeyDown}
         />
         <Spacing size={20} />
         <Button css={buttonStyles} onClick={() => onSubmit()}>
