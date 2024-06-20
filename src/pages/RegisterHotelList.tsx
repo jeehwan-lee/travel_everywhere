@@ -11,6 +11,8 @@ import { MdChevronRight } from "react-icons/md";
 import useRegisterHotelList from "../components/register/hooks/useRegisterHotelList";
 import { Spacing } from "../components/shared/Spacing";
 import Button from "../components/shared/Button";
+import { IoIosClose } from "react-icons/io";
+import { removeHotel } from "../api/hotel";
 
 function RegisterHotelList() {
   const navigate = useNavigate();
@@ -27,6 +29,17 @@ function RegisterHotelList() {
       {data.items.map((hotel) => (
         <Flex css={itemStyles}>
           <Link to={`/hotel/${hotel.id}`} style={{ width: "100%" }}>
+            <Flex justify="flex-end">
+              <IoIosClose
+                css={deleteButtonStyles}
+                onClick={(e) => {
+                  e.preventDefault();
+                  removeHotel(hotel.id).then(() => {
+                    navigate("/register/list");
+                  });
+                }}
+              />
+            </Flex>
             <Flex>
               <img
                 css={imageStyles}
@@ -85,7 +98,7 @@ const containerStyles = css`
 `;
 
 const itemStyles = css`
-  padding: 30px 20px 10px 30px;
+  padding: 10px 20px 10px 30px;
   margin: 10px 40px;
   border-radius: 10px;
   background-color: ${colors.gray50};
@@ -98,6 +111,16 @@ const imageStyles = css`
 const buttonStyles = css`
   width: 100%;
   font-size: 16px;
+`;
+
+const deleteButtonStyles = css`
+  color: ${colors.gray500};
+  font-size: 30px;
+
+  &:hover {
+    font-size: 34px;
+    color: ${colors.gray700};
+  }
 `;
 
 export default RegisterHotelList;
