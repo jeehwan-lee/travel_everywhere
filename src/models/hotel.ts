@@ -16,6 +16,7 @@ export interface Hotel {
       fontColor: string;
     };
   };
+  userId?: string;
   recommendHotels: string[];
   forms: ReservationForm[];
   likes?: number;

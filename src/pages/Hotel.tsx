@@ -20,10 +20,10 @@ function Hotel() {
     return <div>Loading...</div>;
   }
 
-  const { name, comment, images, contents, location, recommendHotels } = data;
+  const { name, comment, images, contents, location, userId } = data;
   return (
     <div>
-      <Top title={name} subTitle={comment} />
+      <Top title={name} subTitle={comment} id={id} userId={userId} />
       <Carousel images={images} />
       <ActionButtons hotel={data} />
       <Spacing size={5} backgroundColor="gray100" />
