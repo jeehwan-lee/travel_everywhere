@@ -119,3 +119,15 @@ export function updateOrder(likes: Like[]) {
 
   return batch.commit();
 }
+
+export async function removeLike(hotelId: string, userId: string) {
+  const findSnapshot = await getDocs(
+    query(
+      collection(store, COLLECTIONS.LIKE),
+      where("userId", "==", userId),
+      where("hotelId", "==", hotelId)
+    )
+  );
+
+  return deleteDoc(findSnapshot.docs[0].ref);
+}
