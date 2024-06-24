@@ -17,10 +17,20 @@ import { modifyHotelDesc, registerHotel } from "../api/register";
 import useUser from "../hooks/auth/userUser";
 import qs from "qs";
 import { getHotel } from "../api/hotel";
+import { useQuery } from "react-query";
 
 function ModifyHotel() {
   const navigate = useNavigate();
-  const user = useUser();
+
+  const { hotelId } = qs.parse(window.location.search, {
+    ignoreQueryPrefix: true,
+  }) as {
+    hotelId: string;
+  };
+
+  const { data, isLoading } = useQuery(["modifyHotel", hotelId], () =>
+    getHotel(hotelId)
+  );
 
   const [modifyHotel, setModifyHotel] = useState<Hotel>({
     comment: "",
@@ -35,12 +45,6 @@ function ModifyHotel() {
     recommendHotels: [],
     forms: [],
   });
-
-  const { hotelId } = qs.parse(window.location.search, {
-    ignoreQueryPrefix: true,
-  }) as {
-    hotelId: string;
-  };
 
   useEffect(() => {
     getHotel(hotelId).then((result) => {
@@ -100,6 +104,10 @@ function ModifyHotel() {
     setModifyHotel({ ...modifyHotel, images: newImageList });
   };
 
+  if (data === null || isLoading) {
+    return null;
+  }
+
   return (
     <div style={{ padding: 24 }}>
       <Text typography="t4" bold={true}>
@@ -122,7 +130,7 @@ function ModifyHotel() {
       />
       <Spacing size={8} />
       <ContentEditor
-        defaultValue={modifyHotel.contents}
+        defaultValue={data?.contents}
         name="contents"
         onChangeEditor={(value: string) =>
           setModifyHotel({ ...modifyHotel, contents: value })
