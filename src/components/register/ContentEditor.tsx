@@ -8,6 +8,7 @@ interface ContentEditorProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: React.ReactNode;
   hasError?: boolean;
   helpMessage?: React.ReactNode;
+  defaultValue?: string;
   onChangeEditor: (e: string) => void;
 }
 
@@ -15,6 +16,7 @@ function ContentEditor({
   label,
   hasError,
   helpMessage,
+  defaultValue,
   onChangeEditor,
 }: ContentEditorProps) {
   const [focused, setFocused] = useState(false);
@@ -83,6 +85,7 @@ function ContentEditor({
         </Text>
       ) : null}
       <ReactQuill
+        defaultValue={defaultValue}
         ref={quillRef}
         style={{
           width: "100%",

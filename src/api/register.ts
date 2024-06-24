@@ -49,3 +49,16 @@ export async function getRegisterHotelList(userId?: string) {
   );
   return { items };
 }
+
+export function modifyHotelDesc(hotel: Hotel) {
+  const hotelRef = doc(store, COLLECTIONS.HOTEL, hotel.id);
+
+  return updateDoc(hotelRef, {
+    comment: hotel.comment,
+    contents: hotel.contents,
+    images: hotel.images,
+    name: hotel.name,
+    price: hotel.price,
+    location: hotel.location,
+  });
+}

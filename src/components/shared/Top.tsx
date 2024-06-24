@@ -83,7 +83,7 @@ function Top({ title, subTitle, id, userId }: TopProps) {
               <Text
                 typography="t5"
                 css={dropDownTextStyles}
-                onClick={() => navigate("/")}
+                onClick={() => navigate(`/modify/hotel?hotelId=${id}`)}
               >
                 수정하기
               </Text>

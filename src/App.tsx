@@ -27,6 +27,7 @@ import { css } from "@emotion/react";
 import LeftMenubar from "./components/shared/LeftMenubar";
 import ReservationUserList from "./pages/ReservationUserList";
 import LikeHotelList from "./pages/LikeHotelList";
+import ModifyHotel from "./pages/ModifyHotel";
 
 function App() {
   useLoadKaKao();
@@ -44,6 +45,7 @@ function App() {
               <Route path="/test" element={<Test />} />
               <Route path="/signin" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
+              <Route path="/modify/Hotel" element={<ModifyHotel />} />
               <Route
                 path="/profile"
                 element={
