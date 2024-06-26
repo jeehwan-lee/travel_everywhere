@@ -1,16 +1,22 @@
 /** @jsxImportSource @emotion/react */
 
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import useHotels from "../components/hotel_list/hooks/useHotels";
 import HotelItem from "../components/hotel_list/HotelItem";
 import { Spacing } from "../components/shared/Spacing";
 import Top from "../components/shared/Top";
 import useLike from "../hooks/useLike";
+import qs from "qs";
 
 function HotelList() {
   const { data: hotels, hasNextPage, loadMore } = useHotels();
   const { data: likes, mutate: like } = useLike();
+
+  const { search } = qs.parse(window.location.search, {
+    ignoreQueryPrefix: true,
+  }) as { search: string };
+
   return (
     <div>
       <InfiniteScroll

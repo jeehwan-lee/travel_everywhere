@@ -27,6 +27,8 @@ function Navbar() {
 
   const [showDropDownMenu, setShowDropDownMenu] = useState<Boolean>(false);
 
+  const [searchParam, setSearchParam] = useState<string>("");
+
   const handleClickOutSide = (e: any) => {
     if (
       dropdownMenuRef.current &&
@@ -134,7 +136,12 @@ function Navbar() {
               </Flex>
             </Link>
             <Spacing size={20} direction="horizontal" />
-            <SearchInput placeholder="호텔을 검색해보세요" />
+            <SearchInput
+              placeholder="호텔을 검색해보세요"
+              value={searchParam}
+              onChange={(e) => setSearchParam(e.target.value)}
+              onKeyDown={() => navigate(`/?search=${searchParam}`)}
+            />
           </Flex>
           {renderButton()}
         </Flex>

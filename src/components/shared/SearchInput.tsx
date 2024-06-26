@@ -4,20 +4,37 @@ import styled from "@emotion/styled";
 import { colors } from "../../styles/colorPalette";
 import { CiSearch } from "react-icons/ci";
 
-import React from "react";
+import React, { KeyboardEvent } from "react";
 import { css } from "@emotion/react";
 
 interface SearchInputProps {
   placeholder?: string;
   value?: string;
   onChange?: (e: any) => void;
+  onKeyDown?: () => void;
 }
 
-function SearchInput({ placeholder, value, onChange }: SearchInputProps) {
+function SearchInput({
+  placeholder,
+  value,
+  onChange,
+  onKeyDown,
+}: SearchInputProps) {
+  const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && onKeyDown) {
+      onKeyDown();
+    }
+  };
+
   return (
     <div css={containerStyles}>
       <CiSearch css={iconStyles} />
-      <Input placeholder={placeholder} value={value} onChange={onChange} />
+      <Input
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        onKeyDown={onKeyDownHandler}
+      />
     </div>
   );
 }
