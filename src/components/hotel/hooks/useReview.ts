@@ -20,6 +20,7 @@ function useReview({ hotelId }: { hotelId: string }) {
         createdAt: new Date(),
         hotelId,
         userId: user?.uid as string,
+        photoURL: user?.photoURL as string,
         text,
       };
 
@@ -41,6 +42,7 @@ function useReview({ hotelId }: { hotelId: string }) {
         createdAt: new Date(),
         hotelId,
         userId: user?.uid as string,
+        photoURL: user?.photoURL as string,
         text,
       };
 

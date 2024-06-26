@@ -52,8 +52,13 @@ function Review({ hotelId }: { hotelId: string }) {
           return (
             <ListRow
               left={
-                review.user.photoURL != null ? (
-                  <img src={review.user.photoURL} />
+                review.photoURL != null ? (
+                  <img
+                    src={review.photoURL}
+                    width={40}
+                    height={40}
+                    style={{ borderRadius: "100%" }}
+                  />
                 ) : null
               }
               contents={
